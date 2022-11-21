@@ -1,20 +1,23 @@
-const{client, createUser}=require("./index");
+const { client, createUser } = require("./index");
+//QUESTION seed server is not starting. Not recognized as a command on my local device. May need other pieces for functionality.
 
-async function dropTables(){
-  try{
+async function dropTables() {
+  try {
     console.log("Starting to drop tables..");
     await client.query(`
     DROP TABLE IF EXISTS users;
+    DROP TABLE IF EXISTS products;
+    DROP TABLE IF EXISTS cart;
+    DROP TABLE IF EXISTS cart_item;
     `);
     console.log("Finished dropping tables");
-
-  }catch(error){
+  } catch (error) {
     console.log("Error dropping tables");
     throw error;
   }
 }
 
-async function createTables(){
+async function createTables() {
   try {
     console.log("Starting to build tables...");
     await client.query(`
@@ -46,27 +49,24 @@ async function createTables(){
     `);
     //QUESTION will there be an issue with cart_item and cart using products(id)
     console.log("Finish building tables");
-
   } catch (error) {
     console.error("Error building tables");
     throw error;
   }
 }
 
-async function buildingDB(){
+async function buildingDB() {
   try {
     client.connect();
-    await dropTables()
-    await createTables()
-
+    await dropTables();
+    await createTables();
   } catch (error) {
     console.log("error during building");
     throw error;
-
   }
 }
 
-async function createInitialUsers(){
+async function createInitialUsers() {
   try {
     console.log("Starting to create users");
     await createUser({
@@ -77,10 +77,8 @@ async function createInitialUsers(){
     });
     console.log("Finished creating users");
     //QUESTION address with multiple lines??
-
   } catch (error) {
     console.error("error creating users");
     throw error;
-
   }
 }
