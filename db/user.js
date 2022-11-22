@@ -20,7 +20,23 @@ async function createUser({ username, password, name, address_id }) {
   }
 }
 
+async function getUserById(user_id) {
+  try {
+    const {
+      rows: [user],
+    } = await client.query(`SELECT id, username FROM user WHERE id=${user_id}`);
+    if (!user) {
+      return null;
+    }
+    delete user.password;
+    return user;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 module.exports = {
   client,
   createUser,
+  getUserById
 };
