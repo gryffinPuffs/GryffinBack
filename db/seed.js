@@ -1,4 +1,6 @@
-const { client, createUser } = require("./index");
+const { createAddress, getAddressById } = require("./address");
+const { client } = require("./client");
+const { createUser } = require("./user");
 //QUESTION seed server is not starting. Not recognized as a command on my local device. May need other pieces for functionality.
 
 async function dropTables() {
@@ -73,6 +75,10 @@ async function buildingDB() {
     client.connect();
     await dropTables();
     await createTables();
+    await createInitialAddress();
+    await createInitialUsers();
+    // await createInitialProduct()
+    // await createInitialCart()
   } catch (error) {
     console.log("error during building");
     throw error;
@@ -80,18 +86,38 @@ async function buildingDB() {
 }
 
 async function createInitialUsers() {
+  // const address_id = users.id;
   try {
     console.log("Starting to create users");
+    const userAddress = await getAddressById(1);
+    console.log(userAddress, "banana");
     await createUser({
       username: "dum-dum",
       password: "ABCD1234",
       name: "dumm-e",
-      address: "123 hilltop",
+      address_id: userAddress.id,
     });
     console.log("Finished creating users");
     //QUESTION address with multiple lines??
   } catch (error) {
     console.error("error creating users");
+    throw error;
+  }
+}
+
+async function createInitialAddress() {
+  try {
+    console.log("starting to create address");
+    await createAddress({
+      address_line1: "123 maple street",
+      address_line2: "apt 3",
+      city: "fort collins",
+      state: "colorado",
+      zip_code: "80525",
+    });
+    console.log("finished creating address");
+  } catch (error) {
+    console.error("error creating address");
     throw error;
   }
 }
