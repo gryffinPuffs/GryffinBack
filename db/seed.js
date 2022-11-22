@@ -46,7 +46,8 @@ async function createTables() {
     CREATE TABLE products(
       id SERIAL PRIMARY KEY,
       name TEXT NOT NULL,
-      price DECIMAL NOT NULL,
+      price INTEGER NOT NULL,
+      image_url TEXT NOT NULL,
       description TEXT NOT NULL,
       audience audience_type
     );
@@ -59,6 +60,7 @@ async function createTables() {
       id SERIAL PRIMARY KEY,
       cart_id INTEGER REFERENCES cart(id),
       product_id INTEGER REFERENCES products(id),
+      price INTEGER,
       quantity INTEGER,
       UNIQUE (cart_id, product_id)
    );
@@ -129,19 +131,22 @@ async function createInitialProduct() {
     console.log("starting to create products");
     await createProduct({
      name: "AWESOME BOOK",
-     price: 4.15,
+     price: 415,
+     image_url: "https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1646849115-41oigHHgNAL._SL500_.jpg?crop=1xw:1xh;center,top&resize=480:*",
      description: "Awesome book of awesome",
      audience:"teen"
     });
     await createProduct({
       name: "Not an Awesome book",
-      price: 4.98,
+      price: 498,
+      image_url: "https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1646849115-41oigHHgNAL._SL500_.jpg?crop=1xw:1xh;center,top&resize=480:*",
       description: "A book that is not awesome",
       audience:"child"
      });
      await createProduct({
       name: "Ok book",
-      price: 3.99,
+      price: 399,
+      image_url: "https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1646849115-41oigHHgNAL._SL500_.jpg?crop=1xw:1xh;center,top&resize=480:*",
       description: "This book is OK",
       audience:"adult"
      });
