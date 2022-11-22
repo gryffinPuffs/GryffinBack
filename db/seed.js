@@ -1,6 +1,7 @@
 const { createAddress, getAddressById } = require("./address");
 const { client } = require("./client");
 const { createUser } = require("./user");
+const {createProduct}=require("./product");
 //QUESTION seed server is not starting. Not recognized as a command on my local device. May need other pieces for functionality.
 
 async function dropTables() {
@@ -24,7 +25,7 @@ async function dropTables() {
 async function createTables() {
   try {
     console.log("Starting to build tables...");
-    await client.query(` 
+    await client.query(`
     CREATE TABLE address(
     id SERIAL PRIMARY KEY,
     address_line1 VARCHAR(255) NOT NULL,
@@ -38,15 +39,16 @@ async function createTables() {
       username VARCHAR(255) UNIQUE NOT NULL,
       password VARCHAR(255) NOT NULL,
       name VARCHAR(255) NOT NULL,
-      admin BOOLEAN DEFAULT false, 
+      admin BOOLEAN DEFAULT false,
       address_id INTEGER REFERENCES address(id)
     );
   CREATE TYPE audience_type AS ENUM ('adult','teen','child');
     CREATE TABLE products(
       id SERIAL PRIMARY KEY,
-      price INTEGER NOT NULL,
+      name TEXT NOT NULL,
+      price DECIMAL NOT NULL,
       description TEXT NOT NULL,
-      audience audience_type 
+      audience audience_type
     );
     CREATE TABLE cart(
       id SERIAL PRIMARY KEY,
@@ -77,7 +79,7 @@ async function buildingDB() {
     await createTables();
     await createInitialAddress();
     await createInitialUsers();
-    // await createInitialProduct()
+    await createInitialProduct();
     // await createInitialCart()
   } catch (error) {
     console.log("error during building");
@@ -122,6 +124,35 @@ async function createInitialAddress() {
   }
 }
 
-buildingDB()
+async function createInitialProduct() {
+  try {
+    console.log("starting to create products");
+    await createProduct({
+     name: "AWESOME BOOK",
+     price: 4.15,
+     description: "Awesome book of awesome",
+     audience:"teen"
+    });
+    await createProduct({
+      name: "Not an Awesome book",
+      price: 4.98,
+      description: "A book that is not awesome",
+      audience:"child"
+     });
+     await createProduct({
+      name: "Ok book",
+      price: 3.99,
+      description: "This book is OK",
+      audience:"adult"
+     });
+    console.log("finished creating product");
+  } catch (error) {
+    console.error("error creating product");
+    throw error;
+  }
+}
+
+
+buildingDB() //line 125
   .catch(console.error)
   .finally(() => client.end());
