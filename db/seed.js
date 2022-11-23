@@ -15,6 +15,13 @@ const {
   getProductByName,
 } = require("./product");
 const { createCart } = require("./cart");
+const {
+  addItemToCart,
+  getCartItemById,
+  editCartItem,
+  destroyItemInCart,
+} = require("./cart_item");
+
 //QUESTION seed server is not starting. Not recognized as a command on my local device. May need other pieces for functionality.
 
 async function dropTables() {
@@ -217,6 +224,10 @@ async function testDB() {
     console.log("getting user by username");
     const username = await getUserByUsername("dum-dum");
     console.log("result:", username);
+
+    console.log("item added to cart");
+    const item = await addItemToCart("AWESOME BOOK");
+    console.log("result:", item);
   } catch (error) {
     console.log("Error during testDB");
     throw error;
