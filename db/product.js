@@ -105,6 +105,27 @@ async function getProductByName(name) {
     throw error;
   }
 }
+// async function attachProductsToCart(carts){
+//   const cartToReturn=[...carts];
+//   const binds =carts.map((_,index)=>`$${index+1}`).join(', ');
+//   const cartIds= carts.map(cart=> cart.id);
+//   if(!cartIds?.length) return[];
+//   try{
+//     const {rows: products}= await client.query(`
+//     SELECT products.*, cart_item.quantity, cart_item.price, cart_item.id AS "cartProductId", cart_item.cart_id
+//     FROM products
+//     JOIN cart_item ON cart_item.cart_id= products.id
+//     WHERE cart_item.cart_id IN (${binds});
+//     `, cartIds);
+//     for(const cart of cartToReturn){
+//       const productsToAdd= products.filter(product=> product.cartId===cart.id);
+//       cart.products=productsToAdd;
+//     }
+//     return cartToReturn
+//   } catch(error){
+//     console.error(error)
+//   }
+// }
 
 module.exports = {
   client,
@@ -113,4 +134,5 @@ module.exports = {
   getProductById,
   updateProduct,
   getProductByName,
+  // attachProductsToCart,
 };
