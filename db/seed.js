@@ -227,6 +227,10 @@ async function testDB() {
     console.log("item added to cart");
     const item = await addItemToCart("AWESOME BOOK");
     console.log("result:", item);
+
+    console.log("Querying for cart");
+    const books = await get();
+    console.log("Cart with products", books);
   } catch (error) {
     console.log("Error during testDB");
     throw error;
