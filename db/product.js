@@ -106,27 +106,31 @@ async function getProductByName(name) {
   }
 }
 async function attachProductsToCart(carts) {
-  const cartToReturn = [...carts];
-  const binds = carts.map((_, index) => `$${index + 1}`).join(", ");
-  const cartIds = carts.map((cart) => cart.id);
-  if (!cartIds?.length) return [];
+  console.log(carts, "merry christmas");
+  const cartToReturn = { ...carts };
+  //const binds = carts.map((_, index) => `$${index + 1}`).join(", ");
+  //const cartIds = carts.map((cart) => cart.id);
+  //console.log(binds, cartIds,"")
+  //if (!cartIds?.length) return [];
   try {
     const { rows: products } = await client.query(
       `
     SELECT products.*, cart_item.quantity, cart_item.price, cart_item.id AS "cartProductId", cart_item.cart_id
     FROM products
-    JOIN cart_item ON cart_item.cart_id= products.id
-    WHERE cart_item.cart_id IN (${binds});
+    JOIN cart_item ON cart_item.product_id= products.id
+    WHERE cart_item.cart_id IN ($1);
     `,
-      cartIds
+      [cartToReturn.id]
     );
-    for (const cart of cartToReturn) {
-      const productsToAdd = products.filter(
-        (product) => product.cartId === cart.id
-      );
-      cart.products = productsToAdd;
-    }
+    console.log(products, "these are products");
+    // for (const cart of cartToReturn) {
+    //   const productsToAdd = products.filter(
+    //     (product) => product.cartId === cart.id
+    //   );
+    //   cart.products = productsToAdd;
+    // }
     console.log("cart to return");
+    cartToReturn.products = products;
     return cartToReturn;
   } catch (error) {
     console.error(error);
