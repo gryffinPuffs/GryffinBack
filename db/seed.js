@@ -6,6 +6,7 @@ const {
   getUserById,
   getUserByUsername,
 } = require("./user");
+const bcrypt = require("bcrypt");
 const {
   createProduct,
   getAllProducts,
