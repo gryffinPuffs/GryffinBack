@@ -91,17 +91,20 @@ async function updateProduct(id, fields = {}) {
   }
 }
 
-// async function getProductByName(productName){
-//   try {
-//     const {rows: productIds } = await client.query (`
-//     SELECT products.id
-//     FROM products
-//     JOIN products_name on products.id=products_name."productId"
-//     WHERE name o
-
-//     `)
-//   }
-// }
+async function getProductByName(name) {
+  try {
+    const { rows: products } = await client.query(
+      `
+    SELECT * FROM products
+    WHERE name = $1;
+    `,
+      [name]
+    );
+    return products;
+  } catch (error) {
+    throw error;
+  }
+}
 
 module.exports = {
   client,
@@ -109,4 +112,5 @@ module.exports = {
   getAllProducts,
   getProductById,
   updateProduct,
+  getProductByName,
 };

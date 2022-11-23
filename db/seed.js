@@ -6,6 +6,7 @@ const {
   getAllProducts,
   getProductById,
   updateProduct,
+  getProductByName,
 } = require("./product");
 //QUESTION seed server is not starting. Not recognized as a command on my local device. May need other pieces for functionality.
 
@@ -183,6 +184,10 @@ async function testDB() {
       description: "cult classic",
     });
     console.log("Result:", updateProductResult);
+
+    console.log("Calling getProductByName(1)");
+    const productName = await getProductByName(1);
+    console.log("Result:", productName);
   } catch (error) {
     console.log("Error during testDB");
     throw error;
