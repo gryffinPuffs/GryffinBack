@@ -13,8 +13,9 @@ const {
   getProductById,
   updateProduct,
   getProductByName,
+  attachProductsToCart,
 } = require("./product");
-const { createCart } = require("./cart");
+const { createCart, getCartByUser } = require("./cart");
 const {
   addItemToCart,
   getCartItemById,
@@ -226,8 +227,19 @@ async function testDB() {
     console.log("result:", username);
 
     console.log("item added to cart");
-    const item = await addItemToCart("AWESOME BOOK");
+    const item = await addItemToCart({
+      cart_id: 1,
+      product_id: 1,
+      price: 415,
+      quantity: 2,
+    });
     console.log("result:", item);
+
+    console.log("Querying for cart");
+    const books = await getCartByUser({ username: "dum-dum" });
+    const cartItems = await attachProductsToCart(books);
+
+    console.log("Cart with products", cartItems);
   } catch (error) {
     console.log("Error during testDB");
     throw error;

@@ -126,6 +126,7 @@ async function attachProductsToCart(carts) {
       );
       cart.products = productsToAdd;
     }
+    console.log("cart to return");
     return cartToReturn;
   } catch (error) {
     console.error(error);
