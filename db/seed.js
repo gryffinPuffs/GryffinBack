@@ -1,7 +1,11 @@
 const { createAddress, getAddressById } = require("./address");
 const { client } = require("./client");
-const { createUser, getUser, getUserById, getUserByUsername } = require("./user");
-const bcrypt = require("bcrypt");
+const {
+  createUser,
+  getUser,
+  getUserById,
+  getUserByUsername,
+} = require("./user");
 const {
   createProduct,
   getAllProducts,
@@ -10,6 +14,13 @@ const {
   getProductByName,
 } = require("./product");
 const { createCart } = require("./cart");
+const {
+  addItemToCart,
+  getCartItemById,
+  editCartItem,
+  destroyItemInCart,
+} = require("./cart_item");
+
 //QUESTION seed server is not starting. Not recognized as a command on my local device. May need other pieces for functionality.
 
 async function dropTables() {
@@ -82,7 +93,6 @@ async function createTables() {
 }
 
 async function createInitialUsers() {
-
   try {
     console.log("Starting to create users");
     const userAddress = await getAddressById(1);
@@ -154,12 +164,11 @@ async function createInitialCart() {
   try {
     console.log("starting to create carts");
     await createCart({
-      user_id:1,
-      active:true
-
+      user_id: 1,
+      active: true,
     });
-    console.log("finished creating cart")
-  } catch (error){
+    console.log("finished creating cart");
+  } catch (error) {
     console.error("error creating cart");
     throw error;
   }
@@ -173,7 +182,7 @@ async function buildingDB() {
     await createInitialAddress();
     await createInitialUsers();
     await createInitialProduct();
-    await createInitialCart()
+    await createInitialCart();
   } catch (error) {
     console.log("error during building");
     throw error;
@@ -204,16 +213,20 @@ async function testDB() {
     console.log("Result:", productName);
 
     console.log("get user with Password hashing");
-    const user = await getUser({username: "dum-dum", password: "ABCD1234"});
+    const user = await getUser({ username: "dum-dum", password: "ABCD1234" });
     console.log(user, "user with hashed password");
 
     console.log("getting user by Id");
     const userId = await getUserById(1);
-    console.log(userId, "this is user Id")
+    console.log(userId, "this is user Id");
 
     console.log("getting user by username");
     const username = await getUserByUsername("dum-dum");
     console.log("result:", username);
+
+    console.log("item added to cart");
+    const item = await addItemToCart("AWESOME BOOK");
+    console.log("result:", item);
   } catch (error) {
     console.log("Error during testDB");
     throw error;
