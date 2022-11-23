@@ -15,7 +15,7 @@ const {
   getProductByName,
   attachProductsToCart,
 } = require("./product");
-const { createCart, getCartByUser } = require("./cart");
+const { createCart, getActiveCartByUser } = require("./cart");
 const {
   addItemToCart,
   getCartItemById,
@@ -236,8 +236,9 @@ async function testDB() {
     console.log("result:", item);
 
     console.log("Querying for cart");
-    const books = await getCartByUser({ username: "dum-dum" });
-    const cartItems = await attachProductsToCart(books);
+    const currentCart = await getActiveCartByUser({ username: "dum-dum" });
+    console.log(currentCart, "these are currentCart");
+    const cartItems = await attachProductsToCart(currentCart[0]);
 
     console.log("Cart with products", cartItems);
   } catch (error) {

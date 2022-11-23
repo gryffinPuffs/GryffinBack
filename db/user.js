@@ -2,11 +2,11 @@ const { client } = require("./client");
 const bcrypt = require("bcrypt");
 
 async function createUser({ username, password, name, address_id }) {
-  console.log('hello')
+  console.log("hello");
   const saltRound = 10;
   const salt = await bcrypt.genSalt(saltRound);
   const bcryptPassword = await bcrypt.hash(password, salt);
-  
+
   try {
     const {
       rows: [user],
@@ -28,7 +28,6 @@ async function createUser({ username, password, name, address_id }) {
 
 async function getUser({ username, password }) {
   try {
-    
     const user = await getUserByUsername(username);
     const hashedPassword = user.password;
     const validPassword = await bcrypt.compare(password, hashedPassword);
@@ -72,15 +71,15 @@ async function getUserByUsername(username) {
     `,
       [username]
     );
-    console.log(user, "from getUserbyusername")
+    console.log(user, "from getUserbyusername");
     return user;
   } catch (error) {
     throw error;
   }
 }
+// update users function to add admin and potentially update users name and addresses
 
 module.exports = {
-  client,
   createUser,
   getUser,
   getUserById,
