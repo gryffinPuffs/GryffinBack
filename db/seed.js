@@ -1,6 +1,7 @@
 const { createAddress, getAddressById } = require("./address");
 const { client } = require("./client");
-const { createUser } = require("./user");
+const { createUser, getUser, getUserById, getUserByUsername } = require("./user");
+const bcrypt = require("bcrypt");
 const {
   createProduct,
   getAllProducts,
@@ -188,6 +189,18 @@ async function testDB() {
     console.log("Calling getProductByName");
     const productName = await getProductByName("AWESOME BOOK");
     console.log("Result:", productName);
+
+    console.log("get user with Password hashing");
+    const user = await getUser({username: "dum-dum", password: "ABCD1234"});
+    console.log(user, "user with hashed password");
+
+    console.log("getting user by Id");
+    const userId = await getUserById(1);
+    console.log(userId, "this is user Id")
+
+    console.log("getting user by username");
+    const username = await getUserByUsername("dum-dum");
+    console.log("result:", username);
   } catch (error) {
     console.log("Error during testDB");
     throw error;
