@@ -1,7 +1,12 @@
 const { createAddress, getAddressById } = require("./address");
 const { client } = require("./client");
 const { createUser } = require("./user");
-const { createProduct, getAllProducts, getProductById } = require("./product");
+const {
+  createProduct,
+  getAllProducts,
+  getProductById,
+  updateProduct,
+} = require("./product");
 //QUESTION seed server is not starting. Not recognized as a command on my local device. May need other pieces for functionality.
 
 async function dropTables() {
@@ -171,6 +176,13 @@ async function testDB() {
     console.log("Calling getProductById[1]");
     const product = await getProductById(1);
     console.log("Result:", product);
+
+    console.log("Calling updateProduct on products[0]");
+    const updateProductResult = await updateProduct(products[1].id, {
+      name: "UpdatedName weLoveIt",
+      description: "cult classic",
+    });
+    console.log("Result:", updateProductResult);
   } catch (error) {
     console.log("Error during testDB");
     throw error;
