@@ -1,6 +1,12 @@
 const { client } = require("./client");
 
-async function createProduct({ name, price, image_url, description, audience }) {
+async function createProduct({
+  name,
+  price,
+  image_url,
+  description,
+  audience,
+}) {
   try {
     const {
       rows: [product],
@@ -18,44 +24,48 @@ async function createProduct({ name, price, image_url, description, audience }) 
   }
 }
 
-async function getAllProducts(){
+async function getAllProducts() {
   try {
-    const {rows: productIds}= await client.query(`
+    const { rows: productIds } = await client.query(`
     SELECT id
     FROM products
     `);
-    const products= await Promise.all(
-      productIds.map((product)=>getProductById(product.id))
+    const products = await Promise.all(
+      productIds.map((product) => getProductById(product.id))
     );
-    return products
-
+    return products;
   } catch (error) {
     console.error(error);
   }
 }
 
-async function getProductById(id){
+async function getProductById(id) {
   try {
-    const {rows: [product]}= await client.query(`
+    const {
+      rows: [product],
+    } = await client.query(
+      `
     SELECT *
     FROM products
     WHERE id=$1
-    `, [id]);
-    if(!product){
-      throw{
+    `,
+      [id]
+    );
+    if (!product) {
+      throw {
         name: "ProductNotFoundError",
-        message: "Could not find a product with that id"
+        message: "Could not find a product with that id",
       };
     }
     return product;
   } catch (error) {
-    console.error(error)
+    console.error(error);
   }
 }
-
-
 
 module.exports = {
   client,
   createProduct,
+  getAllProducts,
+  getProductById,
 };
