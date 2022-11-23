@@ -9,7 +9,7 @@ async function addItemToCart({ cart_id, product_id, price, quantity }) {
             INSERT INTO cart_item
      (cart_id, product_id, price, quantity)
             VALUES($1, $2, $3, $4)
-            ON CONFLICT (cart_id) DO NOTHING
+            ON CONFLICT (cart_id, product_id) DO NOTHING
             RETURNING *;
             `,
       [cart_id, product_id, price, quantity]
