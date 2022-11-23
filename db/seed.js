@@ -9,6 +9,7 @@ const {
   updateProduct,
   getProductByName,
 } = require("./product");
+const { createCart } = require("./cart");
 //QUESTION seed server is not starting. Not recognized as a command on my local device. May need other pieces for functionality.
 
 async function dropTables() {
@@ -17,7 +18,7 @@ async function dropTables() {
     await client.query(`
     DROP TABLE IF EXISTS cart_item;
     DROP TABLE IF EXISTS products;
-    DROP TABLE IF EXISTS cart;
+    DROP TABLE IF EXISTS carts;
     DROP TABLE IF EXISTS users;
     DROP TABLE IF EXISTS address;
     DROP TYPE IF EXISTS audience_type;
@@ -58,14 +59,14 @@ async function createTables() {
       description TEXT NOT NULL,
       audience audience_type
     );
-    CREATE TABLE cart(
+    CREATE TABLE carts(
       id SERIAL PRIMARY KEY,
       user_id INTEGER REFERENCES users(id),
       active BOOLEAN DEFAULT true
     );
     CREATE TABLE cart_item(
       id SERIAL PRIMARY KEY,
-      cart_id INTEGER REFERENCES cart(id),
+      cart_id INTEGER REFERENCES carts(id),
       product_id INTEGER REFERENCES products(id),
       price INTEGER,
       quantity INTEGER,
@@ -73,7 +74,6 @@ async function createTables() {
    );
 
     `);
-    //QUESTION will there be an issue with cart_item and cart using products(id)
     console.log("Finish building tables");
   } catch (error) {
     console.error("Error building tables");
@@ -82,7 +82,7 @@ async function createTables() {
 }
 
 async function createInitialUsers() {
-  // const address_id = users.id;
+
   try {
     console.log("Starting to create users");
     const userAddress = await getAddressById(1);
@@ -94,7 +94,6 @@ async function createInitialUsers() {
       address_id: userAddress.id,
     });
     console.log("Finished creating users");
-    //QUESTION address with multiple lines??
   } catch (error) {
     console.error("error creating users");
     throw error;
@@ -151,6 +150,20 @@ async function createInitialProduct() {
     throw error;
   }
 }
+async function createInitialCart() {
+  try {
+    console.log("starting to create carts");
+    await createCart({
+      user_id:1,
+      active:true
+
+    });
+    console.log("finished creating cart")
+  } catch (error){
+    console.error("error creating cart");
+    throw error;
+  }
+}
 
 async function buildingDB() {
   try {
@@ -160,7 +173,7 @@ async function buildingDB() {
     await createInitialAddress();
     await createInitialUsers();
     await createInitialProduct();
-    // await createInitialCart()
+    await createInitialCart()
   } catch (error) {
     console.log("error during building");
     throw error;
