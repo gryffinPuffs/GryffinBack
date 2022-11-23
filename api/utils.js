@@ -9,6 +9,16 @@ function requireUser(req, res, next) {
   next();
 }
 
+function requireAdmin(req, res, next) {
+  if (!req.user.admin) {
+    next({
+      name: "Permissions Invalid ",
+      message: "You must have administrator access",
+    });
+  }
+  next();
+}
+
 module.exports = {
   requireUser,
 };
