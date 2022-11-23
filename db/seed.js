@@ -1,7 +1,7 @@
 const { createAddress, getAddressById } = require("./address");
 const { client } = require("./client");
 const { createUser } = require("./user");
-const {createProduct}=require("./product");
+const { createProduct, getAllProducts, getProductById } = require("./product");
 //QUESTION seed server is not starting. Not recognized as a command on my local device. May need other pieces for functionality.
 
 async function dropTables() {
@@ -74,27 +74,12 @@ async function createTables() {
   }
 }
 
-async function buildingDB() {
-  try {
-    client.connect();
-    await dropTables();
-    await createTables();
-    await createInitialAddress();
-    await createInitialUsers();
-    await createInitialProduct();
-    // await createInitialCart()
-  } catch (error) {
-    console.log("error during building");
-    throw error;
-  }
-}
-
 async function createInitialUsers() {
   // const address_id = users.id;
   try {
     console.log("Starting to create users");
     const userAddress = await getAddressById(1);
-    console.log(userAddress, "banana");
+    console.log("this is userAddress", userAddress);
     await createUser({
       username: "dum-dum",
       password: "ABCD1234",
@@ -130,26 +115,29 @@ async function createInitialProduct() {
   try {
     console.log("starting to create products");
     await createProduct({
-     name: "AWESOME BOOK",
-     price: 415,
-     image_url: "https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1646849115-41oigHHgNAL._SL500_.jpg?crop=1xw:1xh;center,top&resize=480:*",
-     description: "Awesome book of awesome",
-     audience:"teen"
+      name: "AWESOME BOOK",
+      price: 415,
+      image_url:
+        "https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1646849115-41oigHHgNAL._SL500_.jpg?crop=1xw:1xh;center,top&resize=480:*",
+      description: "Awesome book of awesome",
+      audience: "teen",
     });
     await createProduct({
       name: "Not an Awesome book",
       price: 498,
-      image_url: "https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1646849115-41oigHHgNAL._SL500_.jpg?crop=1xw:1xh;center,top&resize=480:*",
+      image_url:
+        "https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1646849115-41oigHHgNAL._SL500_.jpg?crop=1xw:1xh;center,top&resize=480:*",
       description: "A book that is not awesome",
-      audience:"child"
-     });
-     await createProduct({
+      audience: "child",
+    });
+    await createProduct({
       name: "Ok book",
       price: 399,
-      image_url: "https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1646849115-41oigHHgNAL._SL500_.jpg?crop=1xw:1xh;center,top&resize=480:*",
+      image_url:
+        "https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1646849115-41oigHHgNAL._SL500_.jpg?crop=1xw:1xh;center,top&resize=480:*",
       description: "This book is OK",
-      audience:"adult"
-     });
+      audience: "adult",
+    });
     console.log("finished creating product");
   } catch (error) {
     console.error("error creating product");
@@ -157,7 +145,39 @@ async function createInitialProduct() {
   }
 }
 
+async function buildingDB() {
+  try {
+    client.connect();
+    await dropTables();
+    await createTables();
+    await createInitialAddress();
+    await createInitialUsers();
+    await createInitialProduct();
+    // await createInitialCart()
+  } catch (error) {
+    console.log("error during building");
+    throw error;
+  }
+}
+
+async function testDB() {
+  try {
+    console.log("Starting to test database...");
+
+    console.log("Calling getAllProducts");
+    const products = await getAllProducts();
+    console.log("Result:", products);
+
+    console.log("Calling getProductById[1]");
+    const product = await getProductById(1);
+    console.log("Result:", product);
+  } catch (error) {
+    console.log("Error during testDB");
+    throw error;
+  }
+}
 
 buildingDB() //line 125
+  .then(testDB)
   .catch(console.error)
   .finally(() => client.end());
