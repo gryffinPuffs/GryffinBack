@@ -178,15 +178,15 @@ async function testDB() {
     const product = await getProductById(1);
     console.log("Result:", product);
 
-    console.log("Calling updateProduct on products[0]");
+    console.log("Calling updateProduct on products[1]");
     const updateProductResult = await updateProduct(products[1].id, {
       name: "UpdatedName weLoveIt",
       description: "cult classic",
     });
     console.log("Result:", updateProductResult);
 
-    console.log("Calling getProductByName(1)");
-    const productName = await getProductByName(1);
+    console.log("Calling getProductByName");
+    const productName = await getProductByName("AWESOME BOOK");
     console.log("Result:", productName);
   } catch (error) {
     console.log("Error during testDB");
