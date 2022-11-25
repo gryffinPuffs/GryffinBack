@@ -160,11 +160,20 @@ async function createInitialProduct() {
       audience: "adult",
     });
     console.log("finished creating product");
+
+    // const cart_items = await Promise.all(
+    //   createInitialProduct.map((cart) => createCart(cart))
+    // );
+
+    // console.log("Products created: ", cart_items);
+    console.log("Finished creating carts");
   } catch (error) {
     console.error("error creating product");
     throw error;
   }
 }
+//QUESTION - struggling to run a promise/map and get all carts...
+
 async function createInitialCart() {
   try {
     console.log("starting to create carts");
@@ -187,51 +196,6 @@ async function createInitialCart() {
   }
 }
 
-// async function createInitialCartItems() {
-//   console.log("Creating cart items...");
-
-//   const cartItemsToCreate = [
-//     {
-//       cartId: 1,
-//       productId: 1,
-//       price: 2050,
-//       quantity: 1,
-//     },
-
-//     {
-//       cartId: 1,
-//       productId: 2,
-//       price: 2150,
-//       quantity: 1,
-//     },
-//     {
-//       cartId: 2,
-//       productId: 2,
-//       price: 2250,
-//       quantity: 1,
-//     },
-//     {
-//       cartId: 3,
-//       productId: 3,
-//       price: 2350,
-//       quantity: 1,
-//     },
-//     {
-//       cartId: 4,
-//       productId: 3,
-//       price: 2450,
-//       quantity: 1,
-//     },
-//   ];
-
-//   const cartItems = await Promise.all(
-//     cartItemsToCreate.map(attachProductsToCart)
-//   );
-
-//   console.log("Carts Created: ", cartItems);
-//   console.log("Finished creating carts.");
-// }
-
 async function buildingDB() {
   try {
     client.connect();
@@ -241,7 +205,6 @@ async function buildingDB() {
     await createInitialUsers();
     await createInitialProduct();
     await createInitialCart();
-    // await createInitialCartItems();
   } catch (error) {
     console.log("error during building");
     throw error;
