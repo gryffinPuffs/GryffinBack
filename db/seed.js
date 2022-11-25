@@ -15,15 +15,18 @@ const {
   getProductByName,
   attachProductsToCart,
 } = require("./product");
-const { createCart, getActiveCartByUser } = require("./cart");
+const {
+  createCart,
+  getActiveCartByUser,
+  getInactiveCartsByUser,
+  getAllCarts,
+} = require("./cart");
 const {
   addItemToCart,
   getCartItemById,
   editCartItem,
   destroyItemInCart,
 } = require("./cart_item");
-
-//QUESTION seed server is not starting. Not recognized as a command on my local device. May need other pieces for functionality.
 
 async function dropTables() {
   try {
@@ -169,12 +172,65 @@ async function createInitialCart() {
       user_id: 1,
       active: true,
     });
-    console.log("finished creating cart");
+    // await createCart({
+    //   user_id: 2,
+    //   active: false,
+    // });
+    // await createCart({
+    //   user_id: 2,
+    //   active: true,
+    // });
+    console.log("finished creating carts");
   } catch (error) {
-    console.error("error creating cart");
+    console.error("error creating carts");
     throw error;
   }
 }
+
+// async function createInitialCartItems() {
+//   console.log("Creating cart items...");
+
+//   const cartItemsToCreate = [
+//     {
+//       cartId: 1,
+//       productId: 1,
+//       price: 2050,
+//       quantity: 1,
+//     },
+
+//     {
+//       cartId: 1,
+//       productId: 2,
+//       price: 2150,
+//       quantity: 1,
+//     },
+//     {
+//       cartId: 2,
+//       productId: 2,
+//       price: 2250,
+//       quantity: 1,
+//     },
+//     {
+//       cartId: 3,
+//       productId: 3,
+//       price: 2350,
+//       quantity: 1,
+//     },
+//     {
+//       cartId: 4,
+//       productId: 3,
+//       price: 2450,
+//       quantity: 1,
+//     },
+//   ];
+
+//   const cartItems = await Promise.all(
+//     cartItemsToCreate.map(attachProductsToCart)
+//   );
+
+//   console.log("Carts Created: ", cartItems);
+//   console.log("Finished creating carts.");
+// }
 
 async function buildingDB() {
   try {
@@ -185,6 +241,7 @@ async function buildingDB() {
     await createInitialUsers();
     await createInitialProduct();
     await createInitialCart();
+    // await createInitialCartItems();
   } catch (error) {
     console.log("error during building");
     throw error;
@@ -237,10 +294,14 @@ async function testDB() {
 
     console.log("Querying for cart");
     const currentCart = await getActiveCartByUser({ username: "dum-dum" });
-    console.log(currentCart, "these are currentCart");
-    const cartItems = await attachProductsToCart(currentCart[0]);
+    console.log("Current cart", currentCart);
 
+    const cartItems = await attachProductsToCart(currentCart[0]);
     console.log("Cart with products", cartItems);
+
+    console.log("Testing getting all carts...");
+    const allCarts = await getAllCarts();
+    console.log("These are all carts", allCarts);
   } catch (error) {
     console.log("Error during testDB");
     throw error;

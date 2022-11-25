@@ -39,6 +39,16 @@ async function getUser({ username, password }) {
     throw error;
   }
 }
+//QUESTION - do we need get all users? Maybe for admin.
+// async function getAllUsers() {
+//   const { rows } = await client.query(
+//     `SELECT id, username
+//           FROM users;
+//         `
+//   );
+
+//   return rows;
+// }
 
 async function getUserById(user_id) {
   try {
