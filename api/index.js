@@ -16,8 +16,8 @@ apiRouter.use("/product", productsRouter);
 const cartsRouter = require("./cart");
 apiRouter.use("/cart", cartsRouter);
 
-const cart_itemsRouter = require("./cart");
-apiRouter.use("/cart", cart_itemsRouter);
+const cart_itemRouter = require("./cart");
+apiRouter.use("/cart", cart_itemRouter);
 
 apiRouter.use(async (req, res, next) => {
   const prefix = "Bearer ";
