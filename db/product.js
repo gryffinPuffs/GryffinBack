@@ -122,14 +122,14 @@ async function attachProductsToCart(carts) {
     `,
       [cartToReturn.id]
     );
-    console.log(products, "these are products");
+    console.log("these are products", products);
     // for (const cart of cartToReturn) {
     //   const productsToAdd = products.filter(
     //     (product) => product.cartId === cart.id
     //   );
     //   cart.products = productsToAdd;
     // }
-    console.log("cart to return");
+    // console.log("cart to return");
     cartToReturn.products = products;
     return cartToReturn;
   } catch (error) {

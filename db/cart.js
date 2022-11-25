@@ -8,32 +8,32 @@ async function createCart({ user_id, active }) {
       rows: [cart],
     } = await client.query(
       `
-INSERT INTO carts(user_id, active)
-VALUES($1, $2)
-RETURNING *;
-`,
+      INSERT INTO carts(user_id, active)
+      VALUES($1, $2)
+      RETURNING *;
+      `,
       [user_id, active]
     );
     return cart;
   } catch (error) {
-    console.error(error);
+    throw error;
   }
 }
 // will need this function to get all user purchase history for admin
-// async function getAllCarts(){
-//   try {
-//     const { carts } = await client.query(`
-// SELECT carts.*, users.username AS user_id
-// FROM carts
-// JOIN users ON users.id = carts.user_id
-// `);
-//     const carts = await attach(rows);
-//     return routines;
-//   } catch (error) {
-//     throw error;
-//   }
-// }
-
+async function getAllCarts() {
+  try {
+    const { rows } = await client.query(`
+    SELECT carts.*, 
+    users.username AS user_id
+    FROM carts
+    JOIN users ON users.id = carts.user_id
+    `);
+    const carts = rows;
+    return carts;
+  } catch (error) {
+    throw error;
+  }
+}
 async function getCartById(id) {
   try {
     const {
@@ -48,7 +48,6 @@ async function getCartById(id) {
     throw error;
   }
 }
-
 async function getActiveCartByUser({ username }) {
   try {
     console.log(username);
@@ -64,7 +63,7 @@ async function getActiveCartByUser({ username }) {
       [userId]
     );
     //return attachProductsToCart(carts);
-    console.log(carts, "these are carts");
+    // console.log(carts, "these are carts");
     return carts;
   } catch (error) {
     throw error;
@@ -72,7 +71,7 @@ async function getActiveCartByUser({ username }) {
 }
 async function getInactiveCartsByUser({ username }) {
   try {
-    console.log(username);
+    // console.log(username);
     const user = await getUserByUsername(username);
     const userId = user.id;
     const { rows: carts } = await client.query(
@@ -85,17 +84,18 @@ async function getInactiveCartsByUser({ username }) {
       [userId]
     );
     //return attachProductsToCart(carts);
-    console.log(carts, "these are carts");
+    // console.log(carts, "these are carts");
     return carts;
   } catch (error) {
     throw error;
   }
 }
-//need a separate function to get old carts and get active carts using promise.all and map to map over array of all carts and attach products to them (main difference is where)
+//need a separate function to get inactive carts and get active carts using promise.all and map over array of all carts and attach products to them (main difference is where)
 
 module.exports = {
   createCart,
   getCartById,
   getActiveCartByUser,
   getInactiveCartsByUser,
+  getAllCarts,
 };
