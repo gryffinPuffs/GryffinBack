@@ -5,7 +5,9 @@ const {
     createUser,
     getUser,
     getUserByUsername,
+    getActiveCartByUser
 } = require("../db");
+const { getActiveCartByUser } = require("../db/cart");
 
 userRouter.post("/login", async (req, res, next) => {
     const { username, password } = req.body;
@@ -82,6 +84,18 @@ userRouter.get("/me", async (req, res, next) => {
         console.log(err.message);
         next();
     }
-})
+});
+
+userRouter.get("/:username/cart", async (req, res, next) => {
+    const username = req.params.username;
+
+    try {
+        const cart = await getActiveCartByUser({ username });
+        res.send(cart);
+    } catch (err) {
+        console.error(err.message);
+        next();
+    }
+}):
 
 module.exports = userRouter;
