@@ -1,7 +1,14 @@
+const e = require("express");
 const express = require("express");
 const cartRouter = express.Router();
-const { getAllCarts } = require("../db/cart");
+const { getAllCarts, createCart, getActiveCartByUser, getInactiveCartsByUser } = require("../db/cart");
 const { attachProductsToCart } = require("../db/product");
+const { requireUser } = require("./utils");
+
+cartRouter.use((req, res, next) => {
+  console.log("A request is being made to /cart");
+  next();
+});
 
 // GET /api/cart
 cartRouter.get("/", async (req, res, next) => {
@@ -13,11 +20,60 @@ cartRouter.get("/", async (req, res, next) => {
   }
 });
 
+//GET activeCarts
+cartRouter.get('/:username/cart', requireUser, async (req, res, next)=>{
+  let{username}=req.params;
+  try {
+    const userCart = await getActiveCartByUser({username});
+    res.send(userCart)
+
+  } catch ({name, message, error}) {
+    next({
+      name:"noCart",
+      message:"Nothing to grab",
+      error: `no cart found for ${username}`
+
+    })
+
+  }
+})
+
+//GET inActiveCarts
+cartRouter.get('/:username/cart', requireUser, async (req, res, next)=>{
+  let{username}=req.params;
+  try {
+    const userCart = await getInactiveCartsByUser({username});
+    res.send(userCart)
+
+  } catch ({name, message, error}) {
+    next({
+      name:"noCart",
+      message:"Nothing to grab",
+      error: `no inactive carts found for ${username}`
+
+    })
+
+  }
+})
 // POST /api/cart
-//QUESTION verify if needed.
+cartRouter.post('/', async(req, res, next)=>
+{
+  const{user_id, active}= req.body;
+  const cartData= {user_id: req.cart.id, active}
+    const cart=await createCart(cartData)
+    if(cart){
+      res.send(cart)
+    }else{
+      return null
+
+  }
+}
+)
 
 //Do we need update cart?
+
 //PATCH /api/cart
+//I think this needs to be in cart_items
 cartRouter.patch(
   "/:cartId/cart_items",
 

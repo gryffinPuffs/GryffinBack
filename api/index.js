@@ -4,6 +4,11 @@ const jwt = require("jsonwebtoken");
 const { JWT_SECRET } = process.env;
 const { getUserById } = require("../db");
 
+apiRouter.get('/accio', async (req, res, next)=>{
+  console.log("find some books")
+  next()
+})
+
 const usersRouter = require("./users");
 apiRouter.use("/users", usersRouter);
 
