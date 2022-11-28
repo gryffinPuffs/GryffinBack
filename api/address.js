@@ -17,14 +17,6 @@ addressRouter.use((req, res, next) => {
 addressRouter.post("/", async (req, res, next) => {
   const { address_line1, address_line2, city, state, zip_code } = req.body;
   try {
-    //   const userAddress = await getAddressById(address.id);
-
-    //   if (userAddress) {
-    //     next({
-    //       name: "Address exists",
-    //       message: "Address is already on file",
-    //     });
-    //   } else {
     const newAddress = await createAddress({
       address_line1,
       address_line2,
@@ -43,14 +35,12 @@ addressRouter.post("/", async (req, res, next) => {
 });
 
 addressRouter.patch("/:address_id", requireUser, async (req, res, next) => {
-  console.log("banana")
-  
   try {
     const { address_line1, address_line2, city, state, zip_code } = req.body;
     const id = req.params.address_id;
 
     const address = await getAddressById(id);
-console.log(address, "this is the address")
+
     if (address) {
       {
         const updatedAddress = await updateAddress({
@@ -71,9 +61,8 @@ console.log(address, "this is the address")
 
 addressRouter.get("/", requireAdmin, async (req, res, next) => {
   try {
-    console.log("hello world");
     const allAddresses = await getAllAddresses();
-    console.log(allAddresses, "getting all addresses");
+
     res.send(allAddresses);
   } catch ({ name, message, error }) {
     next({ name, message, error });

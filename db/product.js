@@ -93,7 +93,7 @@ async function updateProduct(id, fields = {}) {
 
 async function getProductByName(name) {
   try {
-    const { rows: products } = await client.query(
+    const { rows: [products] } = await client.query(
       `
     SELECT * FROM products
     WHERE name = $1;
