@@ -5,7 +5,7 @@ const {
   createAddress,
   getAddressById,
   updateAddress
-} = require ("../db")
+} = require ("../db/address")
 
 addressRouter.use((req, res, next) => {
   console.log("A request is being made to /address");
@@ -41,7 +41,7 @@ addressRouter.post("/:username/address", async (req, res, next) => {
         })
     }
   } catch ({ name, message }) {
-    next({ name, message });    
+    next({ name, message });
   }
 });
 

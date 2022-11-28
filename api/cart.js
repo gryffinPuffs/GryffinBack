@@ -56,7 +56,7 @@ cartRouter.get('/:username/cart', requireUser, async (req, res, next)=>{
   }
 })
 // POST /api/cart
-cartRouter.post('/', async(req, res, next)=>
+cartRouter.post('/',requireUser, async(req, res, next)=>
 {
   const{user_id, active}= req.body;
   const cartData= {user_id: req.cart.id, active}
