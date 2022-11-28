@@ -276,9 +276,7 @@ async function testDB() {
 
     console.log("deleting cart item");
     const deletedItem = await destroyItemInCart(1);
-    console.log("item deleted:", deletedItem)
-  
-  
+    console.log("item deleted:", deletedItem);
   } catch (error) {
     console.log("Error during testDB");
     throw error;
