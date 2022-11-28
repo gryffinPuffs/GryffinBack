@@ -1,52 +1,49 @@
 const express = require("express");
 const addressRouter = express.Router();
-const jwt = require('jsonwebtoken')
+const jwt = require("jsonwebtoken");
 const {
   createAddress,
   getAddressById,
-  updateAddress
-} = require ("../db/address")
+  updateAddress,
+  getAllAddresses,
+} = require("../db/address");
+const { requireAdmin } = require("./utils");
 
 addressRouter.use((req, res, next) => {
   console.log("A request is being made to /address");
   next();
 });
 
-addressRouter.post("/:username/address", async (req, res, next) => {
-  const { username, password, address_id } = req.body;
+addressRouter.post("/", async (req, res, next) => {
+  const { address_line1, address_line2, city, state, zip_code } = req.body;
   try {
-    const userAddress = await getAddressById(username, password, address_id);
+    //   const userAddress = await getAddressById(address.id);
 
-    if(userAddress) {
-      next({
-        name: "Address exists",
-        message: "Address is already on file",
-      });
-    } else {
-      const newAddress = await createAddress({
-        address_line1,
-        address_line2,
-        city,
-        state,
-        zip_code,
-        });
+    //   if (userAddress) {
+    //     next({
+    //       name: "Address exists",
+    //       message: "Address is already on file",
+    //     });
+    //   } else {
+    const newAddress = await createAddress({
+      address_line1,
+      address_line2,
+      city,
+      state,
+      zip_code,
+    });
 
-        const token = jwt.sign(newAddress, process.env.JWT_SECRET, {
-          expiresIn: "1w",
-        });
-        res.send({
-          message: "Address has been added!",
-          token,
-          userAddress: newAddress
-        })
-    }
+    res.send({
+      message: "Address has been added!",
+      userAddress: newAddress,
+    });
   } catch ({ name, message }) {
     next({ name, message });
   }
 });
 
 addressRouter.patch("/address", async (req, res, next) => {
-  try{
+  try {
     const addressId = req.params.addressId;
     const address = await getAddressById(addressId);
 
@@ -54,10 +51,10 @@ addressRouter.patch("/address", async (req, res, next) => {
       {
         const updatedAddress = await updateAddress({
           address_line1,
-        address_line2,
-        city,
-        state,
-        zip_code,
+          address_line2,
+          city,
+          state,
+          zip_code,
         });
         res.send(updateAddress);
       }
@@ -67,4 +64,14 @@ addressRouter.patch("/address", async (req, res, next) => {
   }
 });
 
+addressRouter.get("/", requireAdmin, async (req, res, next) => {
+  try {
+    console.log("hello world");
+    const allAddresses = await getAllAddresses();
+    console.log(allAddresses, "getting all addresses");
+    res.send(allAddresses);
+  } catch ({ name, message, error }) {
+    next({ name, message, error });
+  }
+});
 module.exports = addressRouter;
