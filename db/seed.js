@@ -106,6 +106,7 @@ async function createInitialUsers() {
       username: "dum-dum",
       password: "ABCD1234",
       name: "dumm-e",
+      admin: true
       address_id: userAddress.id,
     });
     console.log("Finished creating users");
@@ -277,8 +278,8 @@ async function testDB() {
     console.log("deleting cart item");
     const deletedItem = await destroyItemInCart(1);
     console.log("item deleted:", deletedItem)
-  
-  
+
+
   } catch (error) {
     console.log("Error during testDB");
     throw error;
