@@ -52,14 +52,16 @@ async function updateAddress({ id, ...fields }) {
   const setString = Object.keys(fields)
     .map((key, index) => `"${key}"=$${index + 1}`)
     .join(", ");
-
+    if (setString.length ===0){
+    return;
+    }
   try {
-    if (setString.length > 0) {
+     
       const {
         rows: [address],
       } = await client.query(
         `
-            UPDATES address
+            UPDATE address
             SET ${setString}
             WHERE id=${id}
             RETURNING *;
@@ -67,7 +69,7 @@ async function updateAddress({ id, ...fields }) {
         Object.values(fields)
       );
       return address;
-    }
+    
   } catch (error) {
     throw error;
   }

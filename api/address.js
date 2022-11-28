@@ -7,7 +7,7 @@ const {
   updateAddress,
   getAllAddresses,
 } = require("../db/address");
-const { requireAdmin } = require("./utils");
+const { requireAdmin, requireUser } = require("./utils");
 
 addressRouter.use((req, res, next) => {
   console.log("A request is being made to /address");
@@ -42,21 +42,26 @@ addressRouter.post("/", async (req, res, next) => {
   }
 });
 
-addressRouter.patch("/address", async (req, res, next) => {
+addressRouter.patch("/:address_id", requireUser, async (req, res, next) => {
+  console.log("banana")
+  
   try {
-    const addressId = req.params.addressId;
-    const address = await getAddressById(addressId);
+    const { address_line1, address_line2, city, state, zip_code } = req.body;
+    const id = req.params.address_id;
 
+    const address = await getAddressById(id);
+console.log(address, "this is the address")
     if (address) {
       {
         const updatedAddress = await updateAddress({
+          id,
           address_line1,
           address_line2,
           city,
           state,
           zip_code,
         });
-        res.send(updateAddress);
+        res.send(updatedAddress);
       }
     }
   } catch (error) {
