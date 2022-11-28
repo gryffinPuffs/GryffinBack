@@ -2,27 +2,32 @@ const express = require("express");
 const apiRouter = express.Router();
 const jwt = require("jsonwebtoken");
 const { JWT_SECRET } = process.env;
-const { getUserById } = require("../db");
+const { getUserById } = require("../db/user");
 
-apiRouter.get('/accio', async (req, res, next)=>{
+apiRouter.use('/', async (req, res, next)=>{
   console.log("find some books")
   next()
 })
 
-const usersRouter = require("./users");
-apiRouter.use("/users", usersRouter);
+apiRouter.get('/', (req, res, next) => {
+  console.log("A get request was made to /api");
+  res.send({ message: "success" });
+});
 
-const addressRouter = require("./product");
-apiRouter.use("/product", addressRouter);
+const userRouter = require("./user");
+apiRouter.use("/user", userRouter);
 
-const productsRouter = require("./product");
-apiRouter.use("/product", productsRouter);
+const addressRouter = require("./address");
+apiRouter.use("/address", addressRouter);
 
-const cartsRouter = require("./cart");
-apiRouter.use("/cart", cartsRouter);
+const productRouter = require("./product");
+apiRouter.use("/product", productRouter);
 
-const cart_itemRouter = require("./cart");
-apiRouter.use("/cart", cart_itemRouter);
+const cartRouter = require("./cart");
+apiRouter.use("/cart", cartRouter);
+
+const cart_itemRouter = require("./cart_item");
+apiRouter.use("/cart_item", cart_itemRouter);
 
 apiRouter.use(async (req, res, next) => {
   const prefix = "Bearer ";
