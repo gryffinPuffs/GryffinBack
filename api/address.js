@@ -66,7 +66,9 @@ addressRouter.patch("/address", async (req, res, next) => {
 
 addressRouter.get("/", requireAdmin, async (req, res, next) => {
   try {
+    console.log("hello world");
     const allAddresses = await getAllAddresses();
+    console.log(allAddresses, "getting all addresses");
     res.send(allAddresses);
   } catch ({ name, message, error }) {
     next({ name, message, error });

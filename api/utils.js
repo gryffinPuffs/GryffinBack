@@ -10,6 +10,7 @@ function requireUser(req, res, next) {
 }
 
 function requireAdmin(req, res, next) {
+  console.log(req.user, "requiring admin");
   if (!req.user.admin) {
     next({
       name: "Permissions Invalid ",

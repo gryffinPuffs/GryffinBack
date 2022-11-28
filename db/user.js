@@ -55,7 +55,7 @@ async function getUserById(user_id) {
     const {
       rows: [user],
     } = await client.query(`
-    SELECT id, username 
+    SELECT*
     FROM users 
     WHERE id=${user_id}
     `);

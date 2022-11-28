@@ -4,30 +4,15 @@ const jwt = require("jsonwebtoken");
 const { JWT_SECRET } = process.env;
 const { getUserById } = require("../db/user");
 
-apiRouter.use('/', async (req, res, next)=>{
-  console.log("find some books")
-  next()
-})
+apiRouter.use("/", async (req, res, next) => {
+  console.log("find some books");
+  next();
+});
 
-apiRouter.get('/', (req, res, next) => {
+apiRouter.get("/", (req, res, next) => {
   console.log("A get request was made to /api");
   res.send({ message: "success" });
 });
-
-const userRouter = require("./user");
-apiRouter.use("/user", userRouter);
-
-const addressRouter = require("./address");
-apiRouter.use("/address", addressRouter);
-
-const productRouter = require("./product");
-apiRouter.use("/product", productRouter);
-
-const cartRouter = require("./cart");
-apiRouter.use("/cart", cartRouter);
-
-const cart_itemRouter = require("./cart_item");
-apiRouter.use("/cart_item", cart_itemRouter);
 
 apiRouter.use(async (req, res, next) => {
   const prefix = "Bearer ";
@@ -52,6 +37,20 @@ apiRouter.use(async (req, res, next) => {
     });
   }
 });
+const userRouter = require("./user");
+apiRouter.use("/user", userRouter);
+
+const addressRouter = require("./address");
+apiRouter.use("/address", addressRouter);
+
+const productRouter = require("./product");
+apiRouter.use("/product", productRouter);
+
+const cartRouter = require("./cart");
+apiRouter.use("/cart", cartRouter);
+
+const cart_itemRouter = require("./cart_item");
+apiRouter.use("/cart_item", cart_itemRouter);
 
 apiRouter.use((error, req, res, next) => {
   error.error == "Unauthorized" && res.status(401);
