@@ -23,25 +23,30 @@ productRouter.get("/", async (req, res, next) => {
 //POST /api/products
 productRouter.post('/', requireAdmin, async (req, res, next)=>{
   try {const {name, price, image_url, description, audience}=req.body;
-  const product= await getProductByName(name)
-  if (product){
-    next({
-      name:"ProductExists",
-      message:`A product with the name ${name} already exists`,
-      error: "productExists",
-
-    });
-  }else {
-      const productData ={
+  const productData ={
     name, price, image_url, description, audience
   }
-  const newProduct= await createProduct(productData)
-  res.send(newProduct)
-}
-}catch({name, message, error}){
-  next({name, message, error})
-}
-})
+  const possibleProduct = await getProductByName(name)
+  console.log(possibleProduct, "new book")
+  if(!possibleProduct)
+  {const newProduct = await createProduct(productData);
+    if (newProduct){
+      res.send(newProduct)
+    }
+    } else {
+      next({
+        name:"ProductExists",
+        message:`A product with the name ${name} already exists`,
+        error: "productExists",
+    
+      }) }
+  }catch({name, message, error}){
+    next({name, message, error})
+  }})
+  
+  
+  
+ 
 
 
 
