@@ -13,7 +13,7 @@ userRouter.post("/login", async (req, res, next) => {
     const { username, password } = req.body;
     try {
         const user = await getUser({ username, password });
-
+console.log(req.body, process.env.JWT_SECRET, "HEREJEJEJEJ")
         if (user) {
             const token = jwt.sign(user, process.env.JWT_SECRET, {
                 expiresIn: "1w",
@@ -86,16 +86,16 @@ userRouter.get("/me", async (req, res, next) => {
     }
 });
 
-userRouter.get("/:username/cart", async (req, res, next) => {
-    const username = req.params.username;
+// userRouter.get("/:username/cart", async (req, res, next) => {
+//     const username = req.params.username;
 
-    try {
-        const cart = await getActiveCartByUser({ username });
-        res.send(cart);
-    } catch (err) {
-        console.error(err.message);
-        next();
-    }
-})
+//     try {
+//         const cart = await getActiveCartByUser({ username });
+//         res.send(cart);
+//     } catch (err) {
+//         console.error(err.message);
+//         next();
+//     }
+// })
 
 module.exports = userRouter;

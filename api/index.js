@@ -4,12 +4,12 @@ const jwt = require("jsonwebtoken");
 const { JWT_SECRET } = process.env;
 const { getUserById } = require("../db/user");
 
-apiRouter.use('/api', async (req, res, next)=>{
+apiRouter.use('/', async (req, res, next)=>{
   console.log("find some books")
   next()
 })
 
-apiRouter.get('/api', (req, res, next) => {
+apiRouter.get('/', (req, res, next) => {
   console.log("A get request was made to /api");
   res.send({ message: "success" });
 });
