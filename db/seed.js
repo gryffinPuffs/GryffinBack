@@ -106,7 +106,7 @@ async function createInitialUsers() {
       username: "dum-dum",
       password: "ABCD1234",
       name: "dumm-e",
-      admin: true
+      admin: true,
       address_id: userAddress.id,
     });
     console.log("Finished creating users");
