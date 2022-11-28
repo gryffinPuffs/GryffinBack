@@ -73,8 +73,24 @@ async function updateAddress({ id, ...fields }) {
   }
 }
 
+async function getAllAddresses() {
+  try {
+    const { rows: addressIds } = await client.query(`
+    SELECT id
+    FROM address
+    `);
+    const addresses = await Promise.all(
+      addressIds.map((address) => getAddressById(address.id))
+    );
+    return addresses;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
 module.exports = {
   createAddress,
   getAddressById,
   updateAddress,
+  getAllAddresses,
 };
