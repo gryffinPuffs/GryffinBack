@@ -18,6 +18,11 @@ userRouter.post("/login", async (req, res, next) => {
             const token = jwt.sign(user, process.env.JWT_SECRET, {
                 expiresIn: "1w",
             });
+            res.send({
+                token,
+                user,
+                message: "you're logged in!"
+            })
         } else {
             next ({
                 name: "IncorrectCredentialsError",
