@@ -12,7 +12,9 @@ const {
   getAllProducts,
   getProductById,
   updateProduct,
+  destroyProduct,
   getProductByName,
+  getProductByAudience,
   attachProductsToCart,
 } = require("./product");
 const {
@@ -167,6 +169,22 @@ async function createInitialProduct() {
       description: "This book is OK",
       audience: "adult",
     });
+    await createProduct({
+      name: "Definitely an Adult Book",
+      price: 399,
+      image_url:
+        "https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1646849115-41oigHHgNAL._SL500_.jpg?crop=1xw:1xh;center,top&resize=480:*",
+      description: "This book is ADULT",
+      audience: "adult",
+    });
+    await createProduct({
+      name: "Not for Youngin's",
+      price: 399,
+      image_url:
+        "https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1646849115-41oigHHgNAL._SL500_.jpg?crop=1xw:1xh;center,top&resize=480:*",
+      description: "This book is rated PG Adult",
+      audience: "adult",
+    });
     console.log("finished creating product");
 
     // const cart_items = await Promise.all(
@@ -247,7 +265,7 @@ async function testDB() {
     console.log("Result:", product);
 
     console.log("Calling updateProduct on products[1]");
-    const updateProductResult = await updateProduct(products[0].id, {
+    const updateProductResult = await updateProduct(products[1].id, {
       name: "UpdatedName weLoveIt",
       description: "cult classic",
     });
@@ -293,13 +311,16 @@ async function testDB() {
     const cartItemId = await getCartItemById(1);
     console.log("got cart item by Id:", cartItemId);
 
-    //  console.log("attaching items to cart");
-    //  const attachedItems = await attachProductsToCart(1);
-    //  console.log("getting attached products:", attachedItems)
+    console.log("getting product audience");
+    const audienceType = await getProductByAudience("adult");
+    console.log("this is product audience:", audienceType);
 
     console.log("deleting cart item");
     const deletedItem = await destroyItemInCart(1);
 
+    console.log("deleting product");
+    const deletedProduct = await destroyProduct(3);
+    console.log("this is deleted product:", deletedProduct);
     console.log("item deleted:", deletedItem);
   } catch (error) {
     console.log("Error during testDB");

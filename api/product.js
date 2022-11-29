@@ -7,6 +7,7 @@ const {
   createProduct,
   getProductById,
   updateProduct,
+  getProductByAudience,
 } = require("../db/product");
 const { requireAdmin } = require("./utils");
 
@@ -25,7 +26,17 @@ productRouter.get("/", async (req, res, next) => {
   }
 });
 
-//QUESTION  - DO WE NEED A POST FOR PRODUCT? IS THIS FOR ADMIN ONLY?
+// GET /api/products/:audience
+productRouter.get("/:audience", async (req, res, next) => {
+  const { audience } = req.params;
+  try {
+    const audienceType = await getProductByAudience(audience);
+    res.send(audienceType);
+  } catch ({ name, message, error }) {
+    next({ name, message, error });
+  }
+});
+
 //POST /api/products
 productRouter.post("/", requireAdmin, async (req, res, next) => {
   try {

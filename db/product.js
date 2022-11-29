@@ -1,4 +1,5 @@
 const { client } = require("./client");
+const { getUser } = require("./user");
 
 async function createProduct({
   name,
@@ -36,6 +37,25 @@ async function getAllProducts() {
     return products;
   } catch (error) {
     console.error(error);
+  }
+}
+
+//get products by audience
+
+async function getProductByAudience(audience) {
+  try {
+    const { rows: products } = await client.query(
+      `
+    SELECT *
+    FROM products
+    WHERE audience = $1
+    `,
+      [audience]
+    );
+    console.log("this is getProductByAudience", audience);
+    return products;
+  } catch (error) {
+    throw error;
   }
 }
 
@@ -91,6 +111,20 @@ async function updateProduct(id, fields = {}) {
   }
 }
 
+async function destroyProduct(id) {
+  const {
+    rows: [product],
+  } = await client.query(
+    `
+  DELETE FROM products
+  WHERE id = $1
+  RETURNING *
+  `,
+    [id]
+  );
+  return [product];
+}
+
 async function getProductByName(name) {
   try {
     const {
@@ -133,6 +167,8 @@ module.exports = {
   getAllProducts,
   getProductById,
   updateProduct,
+  destroyProduct,
   getProductByName,
+  getProductByAudience,
   attachProductsToCart,
 };

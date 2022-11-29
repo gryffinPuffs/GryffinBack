@@ -70,10 +70,6 @@ cartRouter.post("/", requireUser, async (req, res, next) => {
   }
 });
 
-//Do we need update cart?
-
-//PATCH /api/cart
-//I think this needs to be in cart_items
 cartRouter.patch(
   "/:cartId/cart_items",
 
