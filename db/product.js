@@ -64,6 +64,8 @@ async function getProductById(id) {
 }
 
 async function updateProduct(id, fields = {}) {
+  console.log(id, "i am Id");
+  console.log(fields, "this is update");
   const setString = Object.keys(fields)
     .map((key, index) => `"${key}"=$${index + 1}`)
     .join(", ");
@@ -84,7 +86,7 @@ async function updateProduct(id, fields = {}) {
     `,
       Object.values(fields)
     );
-
+    console.log(product, "this is product");
     return product;
   } catch (error) {
     throw error;
@@ -93,7 +95,9 @@ async function updateProduct(id, fields = {}) {
 
 async function getProductByName(name) {
   try {
-    const { rows: [products] } = await client.query(
+    const {
+      rows: [products],
+    } = await client.query(
       `
     SELECT * FROM products
     WHERE name = $1;
