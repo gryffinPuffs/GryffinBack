@@ -29,7 +29,6 @@ async function getCartItemById(id) {
     } = await client.query(`SELECT * FROM cart_item WHERE product_id=$1;`, [
       id,
     ]);
-    console.log(cart_item, "this is cart item");
     return cart_item;
   } catch (error) {}
 }

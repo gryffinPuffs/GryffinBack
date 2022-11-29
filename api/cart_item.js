@@ -8,11 +8,8 @@ const { requireUser } = require("./utils");
 const cart_itemRouter = express.Router();
 
 cart_itemRouter.patch("/:cart_itemId", requireUser, async (req, res, next) => {
-  console.log("hello");
   const { cart_itemId } = req.params;
-  console.log("cart_itemId", cart_itemId);
   const { product_id, price, quantity } = req.body;
-  console.log("this is req.body", req.body);
 
   const updateFields = {};
 
@@ -27,7 +24,6 @@ cart_itemRouter.patch("/:cart_itemId", requireUser, async (req, res, next) => {
   }
   try {
     const originalCart = await getCartItemById(product_id);
-    console.log("original cart", originalCart);
     if (originalCart && originalCart.id) {
       const updatedCart = await editCartItem(cart_itemId, {
         product_id: originalCart.product_id,
@@ -48,12 +44,15 @@ cart_itemRouter.patch("/:cart_itemId", requireUser, async (req, res, next) => {
   }
 });
 
-cart_itemRouter.delete("/:cart_id", requireUser, async (req, res, next) => {
+cart_itemRouter.delete("/:cart_itemId", requireUser, async (req, res, next) => {
+  const { cart_itemId } = req.params;
   try {
-    const cart = await getCartItemById(req.params.cart_id);
+    const cart = await getCartItemById(req.params.cart_itemId);
+    console.log(cart, "this is cart");
 
-    if (cart && cart.user_id === req.user.id) {
-      const deleteCartItem = await destroyItemInCart(cart);
+    if (cart) {
+      console.log("timbuktu");
+      const deleteCartItem = await destroyItemInCart(cart_itemId);
       res.send(deleteCartItem);
     } else {
       next({
