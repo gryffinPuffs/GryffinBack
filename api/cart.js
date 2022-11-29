@@ -7,7 +7,8 @@ const {
   getActiveCartByUser,
   getInactiveCartsByUser,
 } = require("../db/cart");
-const { attachProductsToCart } = require("../db/product");
+const { addItemToCart } = require("../db/cart_item");
+const { attachProductsToCart, getProductById } = require("../db/product");
 const { requireUser } = require("./utils");
 
 cartRouter.use((req, res, next) => {
@@ -98,5 +99,29 @@ cartRouter.patch(
     }
   }
 );
+
+cartRouter.post("/:cartId/product", async (req, res, next) => {
+  const { cartId } = req.params;
+  try {
+    const { productId, price, quantity } = req.body;
+    if (cart && productId) {
+      const updatedCartWithProduct = await addItemToCart({
+        cart_id: cartId,
+        product_id: productId,
+        price,
+        quantity,
+      });
+      res.send(updatedCartWithProduct);
+    } else {
+      next({
+        name: "Incomplete Transaction",
+        message: "There was an issue adding that item to your cart",
+        error: "Incomplete Transaction",
+      });
+    }
+  } catch ({ name, message, error }) {
+    next({ name, message, error });
+  }
+});
 
 module.exports = cartRouter;

@@ -53,7 +53,9 @@ async function getActiveCartByUser({ username }) {
     console.log(username);
     const user = await getUserByUsername(username);
     const userId = user.id;
-    const { rows: carts } = await client.query(
+    const {
+      rows: [cart],
+    } = await client.query(
       `
     SELECT carts.*, users.username AS user_username
     FROM carts
@@ -64,7 +66,7 @@ async function getActiveCartByUser({ username }) {
     );
     //return attachProductsToCart(carts);
     // console.log(carts, "these are carts");
-    return carts;
+    return cart;
   } catch (error) {
     throw error;
   }

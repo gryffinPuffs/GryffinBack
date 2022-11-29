@@ -278,9 +278,9 @@ async function testDB() {
     const cartItemId = await getCartItemById(1);
     console.log("got cart item by Id:", cartItemId);
 
-    // console.log("editing cart items");
-    // const editedItem = await editCartItemId( 1, );
-    // console.log("edited cart item", editedItem)
+    //  console.log("attaching items to cart");
+    //  const attachedItems = await attachProductsToCart(1);
+    //  console.log("getting attached products:", attachedItems)
 
     console.log("deleting cart item");
     const deletedItem = await destroyItemInCart(1);
