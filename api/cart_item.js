@@ -1,30 +1,33 @@
 const express = require("express");
-const { getCartItemById, destroyItemInCart } = require("../db/cart_item");
+const {
+  getCartItemById,
+  destroyItemInCart,
+  editCartItem,
+} = require("../db/cart_item");
 const { requireUser } = require("./utils");
 const cart_itemRouter = express.Router();
 
-cart_itemRouter.patch("/:cart_id", requireUser, async (req, res, next) => {
-  const { cart_id } = req.params;
+cart_itemRouter.patch("/:cart_itemId", requireUser, async (req, res, next) => {
+  const { cart_itemId } = req.params;
   const { product_id, price, quantity } = req.body;
 
   const updateFields = {};
 
-  if (product_id) {
-    updateFields.product_id = product_id;
-  }
-  if (price) {
-    updateFields.price = price;
-  }
+  // if (product_id) {
+  //   updateFields.product_id = product_id;
+  // }
+  // if (price) {
+  //   updateFields.price = price;
+  // }
   if (quantity) {
     updateFields.quantity = quantity;
   }
   try {
-    const originalCart = await getCartItemById(cart_id);
-    if (originalCart === req.user.id) {
-      const updatedCart = await updateCart({
-        id: cart_id,
-        product_id,
-        price,
+    const originalCart = await getCartItemById(product_id);
+    if (originalCart && originalCart.id) {
+      const updatedCart = await editCartItem(cart_itemId, {
+        product_id: originalCart.product_id,
+        price: originalCart.price,
         quantity,
       });
 
@@ -32,7 +35,7 @@ cart_itemRouter.patch("/:cart_id", requireUser, async (req, res, next) => {
     } else {
       next({
         name: "unauthorizedUserError",
-        message: `user ${req.user.username} is not allowed to update ${originalCart})
+        message: `user ${req.user.username} is not allowed to update ${originalCart}
         `,
       });
     }
@@ -41,12 +44,15 @@ cart_itemRouter.patch("/:cart_id", requireUser, async (req, res, next) => {
   }
 });
 
-cart_itemRouter.delete("/:cart_id", requireUser, async (req, res, next) => {
+cart_itemRouter.delete("/:cart_itemId", requireUser, async (req, res, next) => {
+  const { cart_itemId } = req.params;
   try {
-    const cart = await getCartItemById(req.params.cart_id);
+    const cart = await getCartItemById(req.params.cart_itemId);
+    console.log(cart, "this is cart");
 
-    if (cart && cart.user_id === req.user.id) {
-      const deleteCartItem = await destroyItemInCart(cart);
+    if (cart) {
+      console.log("timbuktu");
+      const deleteCartItem = await destroyItemInCart(cart_itemId);
       res.send(deleteCartItem);
     } else {
       next({

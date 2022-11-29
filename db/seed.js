@@ -198,6 +198,21 @@ async function createInitialCart() {
     //   active: true,
     // });
     console.log("finished creating carts");
+    console.log("creating cart items");
+    const newItem = await addItemToCart({
+      cart_id: 1,
+      product_id: 1,
+      price: 199,
+      quantity: 1,
+    });
+    const newItem2 = await addItemToCart({
+      cart_id: 1,
+      product_id: 2,
+      price: 199,
+      quantity: 1,
+    });
+    console.log(newItem2, "this is new item 2");
+    console.log("finished creating cart items");
   } catch (error) {
     console.error("error creating carts");
     throw error;

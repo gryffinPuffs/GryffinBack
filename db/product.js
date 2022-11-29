@@ -64,8 +64,6 @@ async function getProductById(id) {
 }
 
 async function updateProduct(id, fields = {}) {
-  console.log(id, "i am Id");
-  console.log(fields, "this is update");
   const setString = Object.keys(fields)
     .map((key, index) => `"${key}"=$${index + 1}`)
     .join(", ");
