@@ -20,7 +20,7 @@ cart_itemRouter.patch("/:cart_id", requireUser, async (req, res, next) => {
   }
   try {
     const originalCart = await getCartItemById(cart_id);
-    if (originalCart.cart_id === req.user.id) {
+    if (originalCart === req.user.id) {
       const updatedCart = await updateCart({
         id: cart_id,
         product_id,
