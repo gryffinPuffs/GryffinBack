@@ -22,18 +22,25 @@ async function addItemToCart({ cart_id, product_id, price, quantity }) {
 }
 
 async function getCartItemById(id) {
+  console.log(id, "this is cart item id");
   try {
     const {
       rows: [cart_item],
-    } = await client.query(`SELECT * FROM cart_item WHERE id=$1;`, [id]);
+    } = await client.query(`SELECT * FROM cart_item WHERE product_id=$1;`, [
+      id,
+    ]);
+    console.log(cart_item, "this is cart item");
     return cart_item;
   } catch (error) {}
 }
 
-async function editCartItem({ id, ...fields }) {
+async function editCartItem(id, fields = {}) {
+  console.log(id, "This is Id");
+  console.log(fields, "this is fields update");
   const setString = Object.keys(fields)
     .map((key, index) => `"${key}"=$${index + 1}`)
     .join(", ");
+  console.log(setString, "this is string to edit");
   if (setString.length === 0) {
     return;
   }
