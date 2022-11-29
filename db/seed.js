@@ -109,6 +109,13 @@ async function createInitialUsers() {
       admin: true,
       address_id: userAddress.id,
     });
+    await createUser({
+      username: "harry",
+      password: "ABCD1234",
+      name: "dumm-e",
+      admin: true,
+      address_id: userAddress.id,
+    });
     console.log("Finished creating users");
   } catch (error) {
     console.error("error creating users");
@@ -182,10 +189,10 @@ async function createInitialCart() {
       user_id: 1,
       active: true,
     });
-    // await createCart({
-    //   user_id: 2,
-    //   active: false,
-    // });
+    await createCart({
+      user_id: 1,
+      active: false,
+    });
     // await createCart({
     //   user_id: 2,
     //   active: true,
@@ -278,10 +285,7 @@ async function testDB() {
     console.log("deleting cart item");
     const deletedItem = await destroyItemInCart(1);
 
-    console.log("item deleted:", deletedItem)
-
-
-
+    console.log("item deleted:", deletedItem);
   } catch (error) {
     console.log("Error during testDB");
     throw error;
