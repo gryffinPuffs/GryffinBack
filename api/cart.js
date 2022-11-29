@@ -58,7 +58,9 @@ cartRouter.get("/:username/inactive", requireUser, async (req, res, next) => {
 // POST /api/cart
 cartRouter.post("/", requireUser, async (req, res, next) => {
   const { user_id, active } = req.body;
-  const cartData = { user_id: req.cart.id, active };
+  console.log(req.body, "this is req.body");
+  const cartData = { user_id, active };
+  console.log(cartData, "this is cart data");
   const cart = await createCart(cartData);
   if (cart) {
     res.send(cart);
