@@ -45,43 +45,17 @@ productRouter.post('/', requireAdmin, async (req, res, next)=>{
   }})
   
   
-  
- 
 
-
-
-
-// productRouter.post("/", requireUser, async (req, res, next) => {
-//     try {
-//         const { name, description } = req.body;
-//         const activity = await getActivityByName(name)
-//         if (activity) {
-//             next({
-//                 name: "ActivityExistsError",
-//                 message: `An activity with name ${name} already exists`,
-//                 error: "ActivityExistsError",
-//             });
-//         }
-//         else {
-//             const activityData = {
-//                 description,
-//                 name
-//             };
-//             const newActivity = await createActivity(activityData)
-//             res.send(newActivity)
-//         }
-//     } catch ({ name, message, error }) {
-//         next({ name, message, error });
-//       }
-// })
 
 productRouter.patch('/:productId', requireAdmin, async(req, res, next)=>{
   const {productId}= req.params
   const{name, price, image_url, description, audience}=req.body
   const updateFields={}
   if(name){
+    
     const possibleName = await getProductByName(name)
     if(possibleName===undefined){
+      
     updateFields.name = name}
     else{
       next({
@@ -93,7 +67,7 @@ productRouter.patch('/:productId', requireAdmin, async(req, res, next)=>{
   }
   if (price){
     updateFields.price=price
-  }
+  } 
   if(image_url){
     updateFields.image_url=image_url
   }
@@ -105,8 +79,11 @@ productRouter.patch('/:productId', requireAdmin, async(req, res, next)=>{
   }
   try {
     const originalProduct=await getProductById(productId)
+    
     if(originalProduct){
+      
       const updatedProduct= await updateProduct({id:productId, name, price, image_url, description, audience})
+      console.log("hellooo", updatedProduct)
       res.send(updatedProduct)
     }
     else{
