@@ -110,12 +110,7 @@ async function getProductByName(name) {
   }
 }
 async function attachProductsToCart(carts) {
-  console.log(carts, "merry christmas");
   const cartToReturn = { ...carts };
-  //const binds = carts.map((_, index) => `$${index + 1}`).join(", ");
-  //const cartIds = carts.map((cart) => cart.id);
-  //console.log(binds, cartIds,"")
-  //if (!cartIds?.length) return [];
   try {
     const { rows: products } = await client.query(
       `
@@ -127,13 +122,6 @@ async function attachProductsToCart(carts) {
       [cartToReturn.id]
     );
     console.log("these are products", products);
-    // for (const cart of cartToReturn) {
-    //   const productsToAdd = products.filter(
-    //     (product) => product.cartId === cart.id
-    //   );
-    //   cart.products = productsToAdd;
-    // }
-    // console.log("cart to return");
     cartToReturn.products = products;
     return cartToReturn;
   } catch (error) {

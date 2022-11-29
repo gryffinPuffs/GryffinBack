@@ -1,9 +1,10 @@
+const { getActiveCartByUser } = require("./cart");
 const { client } = require("./client");
 
 async function addItemToCart({ cart_id, product_id, price, quantity }) {
   try {
     const {
-      rows: [product],
+      rows: [cart_item],
     } = await client.query(
       `
             INSERT INTO cart_item
@@ -14,7 +15,7 @@ async function addItemToCart({ cart_id, product_id, price, quantity }) {
             `,
       [cart_id, product_id, price, quantity]
     );
-    return product;
+    return cart_item;
   } catch (error) {
     throw error;
   }

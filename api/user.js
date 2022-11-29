@@ -1,6 +1,7 @@
 const express = require("express");
 const userRouter = express.Router();
 const jwt = require("jsonwebtoken");
+const { getActiveCartByUser } = require("../db/cart");
 const { createUser, getUser, getUserByUsername } = require("../db/user");
 
 userRouter.post("/login", async (req, res, next) => {
@@ -74,6 +75,8 @@ userRouter.post("/register", async (req, res, next) => {
 userRouter.get("/me", async (req, res, next) => {
   try {
     if (req.user) {
+      const cart = await getActiveCartByUser({ username: user.username });
+      user.cart = cart;
       res.send(req.user);
     } else {
       next({
