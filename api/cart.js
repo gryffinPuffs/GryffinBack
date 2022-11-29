@@ -103,14 +103,17 @@ cartRouter.patch(
 cartRouter.post("/:cartId/product", async (req, res, next) => {
   const { cartId } = req.params;
   try {
-    const { productId, price, quantity } = req.body;
-    if (cart && productId) {
+    const { product_id, price, quantity } = req.body;
+    console.log(req.body, "banana");
+    if (cartId && product_id) {
+      console.log("hello");
       const updatedCartWithProduct = await addItemToCart({
         cart_id: cartId,
-        product_id: productId,
+        product_id: product_id,
         price,
         quantity,
       });
+      console.log(updatedCartWithProduct, "updated cart with product");
       res.send(updatedCartWithProduct);
     } else {
       next({
