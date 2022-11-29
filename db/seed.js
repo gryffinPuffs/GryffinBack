@@ -225,7 +225,7 @@ async function testDB() {
     console.log("Result:", product);
 
     console.log("Calling updateProduct on products[1]");
-    const updateProductResult = await updateProduct(products[1].id, {
+    const updateProductResult = await updateProduct(products[0].id, {
       name: "UpdatedName weLoveIt",
       description: "cult classic",
     });
