@@ -74,6 +74,8 @@ async function createTables() {
       name TEXT NOT NULL,
       price INTEGER NOT NULL,
       image_url TEXT NOT NULL,
+      image_url2 TEXT,
+      author TEXT NOT NULL,
       description TEXT NOT NULL,
       audience audience_type
     );
@@ -150,6 +152,9 @@ async function createInitialProduct() {
       price: 415,
       image_url:
         "https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1646849115-41oigHHgNAL._SL500_.jpg?crop=1xw:1xh;center,top&resize=480:*",
+      image_url2:
+        "https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1646849115-41oigHHgNAL._SL500_.jpg?crop=1xw:1xh;center,top&resize=480:*",
+      author:"Ed Haddican",
       description: "Awesome book of awesome",
       audience: "teen",
     });
@@ -158,6 +163,9 @@ async function createInitialProduct() {
       price: 498,
       image_url:
         "https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1646849115-41oigHHgNAL._SL500_.jpg?crop=1xw:1xh;center,top&resize=480:*",
+      image_url2:
+        "https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1646849115-41oigHHgNAL._SL500_.jpg?crop=1xw:1xh;center,top&resize=480:*",
+      author:"Jessica Piesco",
       description: "A book that is not awesome",
       audience: "child",
     });
@@ -166,6 +174,9 @@ async function createInitialProduct() {
       price: 399,
       image_url:
         "https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1646849115-41oigHHgNAL._SL500_.jpg?crop=1xw:1xh;center,top&resize=480:*",
+      image_url2:
+        "https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1646849115-41oigHHgNAL._SL500_.jpg?crop=1xw:1xh;center,top&resize=480:*",
+      author:"Kevin Larson",
       description: "This book is OK",
       audience: "adult",
     });
@@ -174,6 +185,9 @@ async function createInitialProduct() {
       price: 399,
       image_url:
         "https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1646849115-41oigHHgNAL._SL500_.jpg?crop=1xw:1xh;center,top&resize=480:*",
+      image_url2:
+        "https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1646849115-41oigHHgNAL._SL500_.jpg?crop=1xw:1xh;center,top&resize=480:*",
+      author:"Randy Smith",
       description: "This book is ADULT",
       audience: "adult",
     });
@@ -182,6 +196,9 @@ async function createInitialProduct() {
       price: 399,
       image_url:
         "https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1646849115-41oigHHgNAL._SL500_.jpg?crop=1xw:1xh;center,top&resize=480:*",
+        image_url2:
+        "https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1646849115-41oigHHgNAL._SL500_.jpg?crop=1xw:1xh;center,top&resize=480:*",
+      author:"Jenniffer Melchiade",
       description: "This book is rated PG Adult",
       audience: "adult",
     });
