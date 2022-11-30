@@ -48,10 +48,8 @@ cart_itemRouter.delete("/:cart_itemId", requireUser, async (req, res, next) => {
   const { cart_itemId } = req.params;
   try {
     const cart = await getCartItemById(req.params.cart_itemId);
-    console.log(cart, "this is cart");
 
     if (cart) {
-      console.log("timbuktu");
       const deleteCartItem = await destroyItemInCart(cart_itemId);
       res.send(deleteCartItem);
     } else {

@@ -153,7 +153,6 @@ async function attachProductsToCart(carts) {
     `,
       [cartToReturn.id]
     );
-    console.log("these are products", products);
     cartToReturn.products = products;
     return cartToReturn;
   } catch (error) {

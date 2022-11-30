@@ -31,7 +31,6 @@ cartRouter.get("/:username/active", requireUser, async (req, res, next) => {
   let { username } = req.params;
   try {
     const userCart = await getActiveCartByUser({ username });
-    console.log("this is user cart", userCart);
     res.send(userCart);
   } catch ({ name, message, error }) {
     next({
@@ -59,9 +58,7 @@ cartRouter.get("/:username/inactive", requireUser, async (req, res, next) => {
 // POST /api/cart
 cartRouter.post("/", requireUser, async (req, res, next) => {
   const { user_id, active } = req.body;
-  console.log(req.body, "this is req.body");
   const cartData = { user_id, active };
-  console.log(cartData, "this is cart data");
   const cart = await createCart(cartData);
   if (cart) {
     res.send(cart);
@@ -100,16 +97,13 @@ cartRouter.post("/:cartId/product", async (req, res, next) => {
   const { cartId } = req.params;
   try {
     const { product_id, price, quantity } = req.body;
-    console.log(req.body, "banana");
     if (cartId && product_id) {
-      console.log("hello");
       const updatedCartWithProduct = await addItemToCart({
         cart_id: cartId,
         product_id: product_id,
         price,
         quantity,
       });
-      console.log(updatedCartWithProduct, "updated cart with product");
       res.send(updatedCartWithProduct);
     } else {
       next({

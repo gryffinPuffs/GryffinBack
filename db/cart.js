@@ -23,7 +23,7 @@ async function createCart({ user_id, active }) {
 async function getAllCarts() {
   try {
     const { rows } = await client.query(`
-    SELECT carts.*, 
+    SELECT carts.*,
     users.username AS user_id
     FROM carts
     JOIN users ON users.id = carts.user_id
@@ -48,9 +48,8 @@ async function getCartById(id) {
     throw error;
   }
 }
-async function getActiveCartByUser({ username }) {
+async function getActiveCartByUser({username}) {
   try {
-    console.log(username);
     const user = await getUserByUsername(username);
     const userId = user.id;
     const {
@@ -64,7 +63,29 @@ async function getActiveCartByUser({ username }) {
     `,
       [userId]
     );
-    return cart;
+
+    const cartsProducts = await attachProductsToCart(cart)
+    return cartsProducts;
+  } catch (error) {
+    throw error;
+  }
+}
+async function getActiveCartByUserId({userId}) {
+  try {
+    const {
+      rows: [cart],
+    } = await client.query(
+      `
+    SELECT carts.*, users.username AS user_username
+    FROM carts
+    JOIN users on users.id=carts.user_id
+    WHERE user_id = $1 AND carts.active = true
+    `,
+      [userId]
+    );
+    const cartsProducts = await attachProductsToCart(cart)
+    console.log(cartsProducts, "potato")
+    return cartsProducts;
   } catch (error) {
     throw error;
   }
@@ -92,6 +113,7 @@ module.exports = {
   createCart,
   getCartById,
   getActiveCartByUser,
+  getActiveCartByUserId,
   getInactiveCartsByUser,
   getAllCarts,
 };

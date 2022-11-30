@@ -1,7 +1,7 @@
 const express = require("express");
 const userRouter = express.Router();
 const jwt = require("jsonwebtoken");
-const { getActiveCartByUser } = require("../db/cart");
+const { getActiveCartByUserId, createCart } = require("../db/cart");
 const { createUser, getUser, getUserByUsername } = require("../db/user");
 
 userRouter.post("/login", async (req, res, next) => {
@@ -30,20 +30,6 @@ userRouter.post("/login", async (req, res, next) => {
   }
 });
 
-userRouter.get("/:username", async (req, res, next) => {
-    
-    const username = req.params.username;
-    
-    console.log(username, "this is the username")
-    try {
-        const user = await getUserByUsername(username)
-        console.log(user, "this is our user")
-        res.send(user)
-        
-    } catch (error) {
-       next ({message: "no user by this username"}) 
-    }
-})
 
 userRouter.post("/register", async (req, res, next) => {
   const { username, password, name, admin, address_id } = req.body;
@@ -71,7 +57,8 @@ userRouter.post("/register", async (req, res, next) => {
         admin,
         address_id,
       });
-
+      const newCart = await createCart({user_id:newUser.id})
+      newUser.cart = newCart
       const token = jwt.sign(newUser, process.env.JWT_SECRET, {
         expiresIn: "1w",
       });
@@ -90,8 +77,9 @@ userRouter.post("/register", async (req, res, next) => {
 userRouter.get("/me", async (req, res, next) => {
   try {
     if (req.user) {
-      const cart = await getActiveCartByUser({ username: user.username });
-      user.cart = cart;
+      const userId = req.user.id
+      const cart = await getActiveCartByUserId({userId });
+      req.user.cart = cart;
       res.send(req.user);
     } else {
       next({
@@ -105,5 +93,18 @@ userRouter.get("/me", async (req, res, next) => {
     next();
   }
 });
+
+userRouter.get("/:username", async (req, res, next) => {
+
+    const username = req.params.username;
+    try {
+        const user = await getUserByUsername(username)
+        console.log(user, "this is our user")
+        res.send(user)
+
+    } catch (error) {
+       next ({message: "no user by this username"})
+    }
+})
 
 module.exports = userRouter;

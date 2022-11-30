@@ -49,7 +49,6 @@ productRouter.post("/", requireAdmin, async (req, res, next) => {
       audience,
     };
     const possibleProduct = await getProductByName(name);
-    console.log(possibleProduct, "new book");
     if (!possibleProduct) {
       const newProduct = await createProduct(productData);
       if (newProduct) {
