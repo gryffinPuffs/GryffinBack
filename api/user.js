@@ -4,6 +4,11 @@ const jwt = require("jsonwebtoken");
 const { getActiveCartByUserId, createCart } = require("../db/cart");
 const { createUser, getUser, getUserByUsername } = require("../db/user");
 
+userRouter.use((req, res, next) => {
+  console.log("A request is being made to /user");
+  next();
+});
+
 userRouter.post("/login", async (req, res, next) => {
   const { username, password } = req.body;
   try {
