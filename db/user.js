@@ -81,7 +81,7 @@ async function getUserByUsername(username) {
     `,
       [username]
     );
-    console.log(user, "from getUserbyusername");
+    console.log(user, "from getUserByUsername");
     return user;
   } catch (error) {
     throw error;

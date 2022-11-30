@@ -30,6 +30,21 @@ userRouter.post("/login", async (req, res, next) => {
   }
 });
 
+userRouter.get("/:username", async (req, res, next) => {
+    
+    const username = req.params.username;
+    
+    console.log(username, "this is the username")
+    try {
+        const user = await getUserByUsername(username)
+        console.log(user, "this is our user")
+        res.send(user)
+        
+    } catch (error) {
+       next ({message: "no user by this username"}) 
+    }
+})
+
 userRouter.post("/register", async (req, res, next) => {
   const { username, password, name, admin, address_id } = req.body;
   try {
