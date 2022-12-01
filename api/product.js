@@ -27,19 +27,19 @@ productRouter.get("/", async (req, res, next) => {
 });
 
 //GET/api/products/id
-productRouter.get("/:id", async (req, res, next)=>{
-  const {id}= req.params;
+productRouter.get("/:id", async (req, res, next) => {
+  const { id } = req.params;
   try {
-    const productId= await getProductById(id);
+    const productId = await getProductById(id);
     res.send(productId);
-
-  } catch ({name, message, error}) {
+  } catch ({ name, message, error }) {
     next({ name, message, error });
   }
 });
 
 // GET /api/products/:audience
 productRouter.get("/:audience", async (req, res, next) => {
+  console.log("hello");
   const { audience } = req.params;
   try {
     const audienceType = await getProductByAudience(audience);
@@ -52,11 +52,21 @@ productRouter.get("/:audience", async (req, res, next) => {
 //POST /api/products
 productRouter.post("/", requireAdmin, async (req, res, next) => {
   try {
-    const { name, price, image_url, description, audience } = req.body;
+    const {
+      name,
+      price,
+      image_url,
+      image_url2,
+      author,
+      description,
+      audience,
+    } = req.body;
     const productData = {
       name,
       price,
       image_url,
+      image_url2,
+      author,
       description,
       audience,
     };
@@ -80,7 +90,8 @@ productRouter.post("/", requireAdmin, async (req, res, next) => {
 
 productRouter.patch("/:productId", requireAdmin, async (req, res, next) => {
   const { productId } = req.params;
-  const { name, price, image_url, description, audience } = req.body;
+  const { name, price, image_url, image_url2, author, description, audience } =
+    req.body;
   const updateFields = {};
   if (name) {
     const possibleName = await getProductByName(name);
@@ -100,6 +111,12 @@ productRouter.patch("/:productId", requireAdmin, async (req, res, next) => {
   if (image_url) {
     updateFields.image_url = image_url;
   }
+  if (image_url2) {
+    updateFields.image_url2 = image_url2;
+  }
+  if (author) {
+    updateFields.author = author;
+  }
   if (description) {
     updateFields.description = description;
   }
@@ -114,6 +131,8 @@ productRouter.patch("/:productId", requireAdmin, async (req, res, next) => {
         name,
         price,
         image_url,
+        image_url2,
+        author,
         description,
         audience,
       });

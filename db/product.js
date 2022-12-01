@@ -15,7 +15,7 @@ async function createProduct({
       rows: [product],
     } = await client.query(
       `
-          INSERT INTO products(name, price, image_url,image_url2, author, description, audience)
+          INSERT INTO products(name, price, image_url, image_url2, author, description, audience)
           VALUES ($1, $2, $3, $4, $5, $6, $7)
           RETURNING *;
         `,
@@ -45,6 +45,7 @@ async function getAllProducts() {
 //get products by audience
 
 async function getProductByAudience(audience) {
+  console.log("hello");
   try {
     const { rows: products } = await client.query(
       `
@@ -55,6 +56,7 @@ async function getProductByAudience(audience) {
       [audience]
     );
     console.log("this is getProductByAudience", audience);
+    console.log("banana", products);
     return products;
   } catch (error) {
     throw error;
