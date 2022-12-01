@@ -151,7 +151,7 @@ async function createInitialProduct() {
       name: "AWESOME BOOK",
       price: 415,
       image_url:
-        "https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1646849115-41oigHHgNAL._SL500_.jpg?crop=1xw:1xh;center,top&resize=480:*",
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTb2QFJ7sdmcaT5oKxl_asKjOTnZlFNORGJmg&usqp=CAU",
       image_url2:
         "https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1646849115-41oigHHgNAL._SL500_.jpg?crop=1xw:1xh;center,top&resize=480:*",
       author:"Ed Haddican",
@@ -283,7 +283,7 @@ async function testDB() {
 
     console.log("Calling updateProduct on products[1]");
     const updateProductResult = await updateProduct(products[1].id, {
-      name: "UpdatedName weLoveIt",
+      name: "We Love You",
       description: "cult classic",
     });
     console.log("Result:", updateProductResult);

@@ -26,6 +26,18 @@ productRouter.get("/", async (req, res, next) => {
   }
 });
 
+//GET/api/products/id
+productRouter.get("/:id", async (req, res, next)=>{
+  const {id}= req.params;
+  try {
+    const productId= await getProductById(id);
+    res.send(productId);
+
+  } catch ({name, message, error}) {
+    next({ name, message, error });
+  }
+});
+
 // GET /api/products/:audience
 productRouter.get("/:audience", async (req, res, next) => {
   const { audience } = req.params;
