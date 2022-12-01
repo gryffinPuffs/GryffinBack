@@ -66,6 +66,7 @@ async function createTables() {
       password VARCHAR(255) NOT NULL,
       name VARCHAR(255) NOT NULL,
       admin BOOLEAN DEFAULT false,
+      email VARCHAR(255) NOT NULL,
       address_id INTEGER REFERENCES address(id)
     );
   CREATE TYPE audience_type AS ENUM ('adult','teen','child');
@@ -111,6 +112,7 @@ async function createInitialUsers() {
       password: "ABCD1234",
       name: "dumm-e",
       admin: true,
+      email: "dumdum@dumdum.com",
       address_id: userAddress.id,
     });
     await createUser({
@@ -118,6 +120,7 @@ async function createInitialUsers() {
       password: "ABCD1234",
       name: "dumm-e",
       admin: true,
+      email: "harry@potter.com",
       address_id: userAddress.id,
     });
     console.log("Finished creating users");
