@@ -37,7 +37,7 @@ userRouter.post("/login", async (req, res, next) => {
 
 
 userRouter.post("/register", async (req, res, next) => {
-  const { username, password, name, admin, address_id } = req.body;
+  const { username, password, name, admin, email, address_id } = req.body;
   try {
     const user = await getUserByUsername(username);
 
@@ -60,6 +60,7 @@ userRouter.post("/register", async (req, res, next) => {
         password,
         name,
         admin,
+        email,
         address_id,
       });
       const newCart = await createCart({user_id:newUser.id})

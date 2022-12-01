@@ -1,7 +1,7 @@
 const { client } = require("./client");
 const bcrypt = require("bcrypt");
 
-async function createUser({ username, password, name, admin, address_id }) {
+async function createUser({ username, password, name, admin, email, address_id }) {
   const saltRound = 10;
   const salt = await bcrypt.genSalt(saltRound);
   const bcryptPassword = await bcrypt.hash(password, salt);
@@ -11,12 +11,12 @@ async function createUser({ username, password, name, admin, address_id }) {
       rows: [user],
     } = await client.query(
       `
-          INSERT INTO users(username, password, name, admin, address_id)
-          VALUES ($1, $2, $3, $4, $5)
+          INSERT INTO users(username, password, name, admin, email, address_id)
+          VALUES ($1, $2, $3, $4, $5, $6)
           ON CONFLICT (username) DO NOTHING
           RETURNING *;
         `,
-      [username, bcryptPassword, name, admin, address_id]
+      [username, bcryptPassword, name, admin, email, address_id]
     );
     delete user.password;
     return user;
@@ -38,16 +38,6 @@ async function getUser({ username, password }) {
     throw error;
   }
 }
-//QUESTION - do we need get all users? Maybe for admin.
-// async function getAllUsers() {
-//   const { rows } = await client.query(
-//     `SELECT id, username
-//           FROM users;
-//         `
-//   );
-
-//   return rows;
-// }
 
 async function getUserById(user_id) {
   try {
