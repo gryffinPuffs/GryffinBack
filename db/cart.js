@@ -1,7 +1,6 @@
 const { client } = require("./client");
-const { attachProductsToCart } = require("./product");
-const { getUserByUsername } = require("./user");
-
+const { attachProductsToCart  } = require("./product");
+const {getUserByUsername} = require('./User')
 async function createCart({ user_id, active }) {
   try {
     const {
@@ -50,7 +49,7 @@ async function getCartById(id) {
 }
 async function getActiveCartByUser({username}) {
   try {
-    const user = await getUserByUsername(username);
+    const user = await getUserByUsername(username)
     const userId = user.id;
     const {
       rows: [cart],
@@ -65,6 +64,7 @@ async function getActiveCartByUser({username}) {
     );
 
     const cartsProducts = await attachProductsToCart(cart)
+    console.log("CART PRODUCTS", cartsProducts)
     return cartsProducts;
   } catch (error) {
     throw error;

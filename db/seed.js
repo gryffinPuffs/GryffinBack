@@ -220,42 +220,42 @@ async function createInitialProduct() {
 }
 //QUESTION - struggling to run a promise/map and get all carts...
 
-async function createInitialCart() {
-  try {
-    console.log("starting to create carts");
-    await createCart({
-      user_id: 1,
-      active: true,
-    });
-    await createCart({
-      user_id: 1,
-      active: false,
-    });
-    // await createCart({
-    //   user_id: 2,
-    //   active: true,
-    // });
-    console.log("finished creating carts");
-    console.log("creating cart items");
-    const newItem = await addItemToCart({
-      cart_id: 1,
-      product_id: 1,
-      price: 199,
-      quantity: 1,
-    });
-    const newItem2 = await addItemToCart({
-      cart_id: 1,
-      product_id: 2,
-      price: 199,
-      quantity: 1,
-    });
-    console.log(newItem2, "this is new item 2");
-    console.log("finished creating cart items");
-  } catch (error) {
-    console.error("error creating carts");
-    throw error;
-  }
-}
+// async function createInitialCart() {
+//   try {
+//     console.log("starting to create carts");
+//     await createCart({
+//       user_id: 1,
+//       active: true,
+//     });
+//     await createCart({
+//       user_id: 1,
+//       active: false,
+//     });
+//     // await createCart({
+//     //   user_id: 2,
+//     //   active: true,
+//     // });
+//     console.log("finished creating carts");
+//     console.log("creating cart items");
+//     const newItem = await addItemToCart({
+//       cart_id: 1,
+//       product_id: 1,
+//       price: 199,
+//       quantity: 1,
+//     });
+//     const newItem2 = await addItemToCart({
+//       cart_id: 1,
+//       product_id: 2,
+//       price: 199,
+//       quantity: 1,
+//     });
+//     console.log(newItem2, "this is new item 2");
+//     console.log("finished creating cart items");
+//   } catch (error) {
+//     console.error("error creating carts");
+//     throw error;
+//   }
+// }
 
 async function buildingDB() {
   try {
@@ -265,7 +265,6 @@ async function buildingDB() {
     await createInitialAddress();
     await createInitialUsers();
     await createInitialProduct();
-    await createInitialCart();
   } catch (error) {
     console.log("error during building");
     throw error;
@@ -342,6 +341,7 @@ async function testDB() {
     const deletedProduct = await destroyProduct(3);
     console.log("this is deleted product:", deletedProduct);
     console.log("item deleted:", deletedItem);
+    console.log("Finished DB Tests");
   } catch (error) {
     console.log("Error during testDB");
     throw error;

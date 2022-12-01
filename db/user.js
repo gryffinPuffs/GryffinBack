@@ -1,6 +1,6 @@
 const { client } = require("./client");
 const bcrypt = require("bcrypt");
-
+const { createCart } = require("./cart");
 async function createUser({ username, password, name, admin, email, address_id }) {
   const saltRound = 10;
   const salt = await bcrypt.genSalt(saltRound);
@@ -19,6 +19,7 @@ async function createUser({ username, password, name, admin, email, address_id }
       [username, bcryptPassword, name, admin, email, address_id]
     );
     delete user.password;
+    await createCart({user_id:user.id, active:true})
     return user;
   } catch (error) {
     throw error;
@@ -58,7 +59,7 @@ async function getUserById(user_id) {
   }
 }
 
-async function getUserByUsername(username) {
+async function getUserByUsername(username){
   try {
     console.log(username)
     const {
@@ -78,9 +79,9 @@ async function getUserByUsername(username) {
 }
 // update users function to add admin and potentially update users name and addresses
 
-module.exports = {
+module.exports =  {
   createUser,
   getUser,
   getUserById,
-  getUserByUsername,
-};
+  getUserByUsername
+  }

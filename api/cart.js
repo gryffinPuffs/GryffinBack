@@ -67,10 +67,7 @@ cartRouter.post("/", requireUser, async (req, res, next) => {
   }
 });
 
-cartRouter.patch(
-  "/:cartId/cart_items",
-
-  async (req, res, next) => {
+cartRouter.patch("/:cartId/cart_items", async (req, res, next) => {
     try {
       const cartId = req.params.cartId;
       const cart = await getCartById(cartId);
