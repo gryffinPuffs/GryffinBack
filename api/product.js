@@ -12,7 +12,7 @@ const {
 const { requireAdmin } = require("./utils");
 
 productRouter.use((req, res, next) => {
-  console.log("A request is being made to /products");
+  console.log("A request is being made to /product");
   next();
 });
 
@@ -25,8 +25,7 @@ productRouter.get("/", async (req, res, next) => {
     next({ name, message, error });
   }
 });
-
-//GET/api/products/id
+//GET/api/products/:id
 productRouter.get("/:id", async (req, res, next) => {
   const { id } = req.params;
   try {
@@ -37,10 +36,10 @@ productRouter.get("/:id", async (req, res, next) => {
   }
 });
 
-// GET /api/products/:audience
-productRouter.get("/:audience", async (req, res, next) => {
+// GET /api/products/audience
+productRouter.get("/audience/:type", async (req, res, next) => {
   console.log("hello");
-  const { audience } = req.params;
+  const { type: audience } = req.params;
   try {
     const audienceType = await getProductByAudience(audience);
     res.send(audienceType);
