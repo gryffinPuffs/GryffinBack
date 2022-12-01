@@ -78,10 +78,23 @@ async function destroyItemInCart(id) {
     throw error;
   }
 }
+async function getCartItemsByCart(id) {
+  const {rows: cart_items} = await client.query(`
+  SELECT *
+  FROM cart_item
+  WHERE cart_id= $1;
+  `, [id])
+
+
+  return cart_items
+
+}
+
 
 module.exports = {
   addItemToCart,
   getCartItemById,
   editCartItem,
   destroyItemInCart,
+  getCartItemsByCart
 };

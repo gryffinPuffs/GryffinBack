@@ -19,7 +19,7 @@ async function createUser({ username, password, name, admin, email, address_id }
       [username, bcryptPassword, name, admin, email, address_id]
     );
     delete user.password;
-    await createCart({user_id:user.id, active:true})
+    await createCart(user.id, true)
     return user;
   } catch (error) {
     throw error;
@@ -61,7 +61,7 @@ async function getUserById(user_id) {
 
 async function getUserByUsername(username){
   try {
-    console.log(username)
+
     const {
       rows: [user],
     } = await client.query(
