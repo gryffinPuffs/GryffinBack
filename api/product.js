@@ -8,6 +8,7 @@ const {
   getProductById,
   updateProduct,
   getProductByAudience,
+  destroyProduct,
 } = require("../db/product");
 const { requireAdmin } = require("./utils");
 
@@ -82,6 +83,17 @@ productRouter.post("/", requireAdmin, async (req, res, next) => {
         error: "productExists",
       });
     }
+  } catch ({ name, message, error }) {
+    next({ name, message, error });
+  }
+});
+
+productRouter.delete("/:productId", requireAdmin, async (req, res, next) => {
+  try {
+    const { productId } = req.params;
+    const product = await getProductById(productId);
+    const deletedProduct = await destroyProduct(product.id);
+    res.send(deletedProduct);
   } catch ({ name, message, error }) {
     next({ name, message, error });
   }
