@@ -33,29 +33,27 @@ async function getCartItemById(id) {
   } catch (error) {}
 }
 
-async function editCartItem(id, fields = {}) {
-  console.log(id, "This is Id");
-  console.log(fields, "this is fields update");
+async function editCartItem(cartId, product_id, fields = {}) {
   const setString = Object.keys(fields)
     .map((key, index) => `"${key}"=$${index + 1}`)
     .join(", ");
-  console.log(setString, "this is string to edit");
   if (setString.length === 0) {
     return;
   }
   try {
     const {
-      rows: [cart],
+      rows: [cart_item],
     } = await client.query(
       `
             UPDATE cart_item
             SET ${setString}
-            WHERE id=${id}
+            WHERE cart_id=${cartId} AND product_id = ${product_id}
             RETURNING *;
             `,
       Object.values(fields)
     );
-    return cart;
+    console.log(cart_item, "cart_item after edit");
+    return cart_item;
   } catch (error) {
     throw error;
   }
@@ -79,22 +77,22 @@ async function destroyItemInCart(id) {
   }
 }
 async function getCartItemsByCart(id) {
-  const {rows: cart_items} = await client.query(`
+  const { rows: cart_items } = await client.query(
+    `
   SELECT *
   FROM cart_item
   WHERE cart_id= $1;
-  `, [id])
+  `,
+    [id]
+  );
 
-
-  return cart_items
-
+  return cart_items;
 }
-
 
 module.exports = {
   addItemToCart,
   getCartItemById,
   editCartItem,
   destroyItemInCart,
-  getCartItemsByCart
+  getCartItemsByCart,
 };
