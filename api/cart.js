@@ -7,7 +7,12 @@ const {
   getActiveCartByUser,
   getInactiveCartsByUser,
 } = require("../db/cart");
-const { addItemToCart } = require("../db/cart_item");
+const {
+  addItemToCart,
+  editCartItem,
+  getCartItemById,
+  getCartItemsByCart,
+} = require("../db/cart_item");
 const { attachProductsToCart, getProductById } = require("../db/product");
 const { requireUser } = require("./utils");
 
@@ -68,40 +73,56 @@ cartRouter.post("/", requireUser, async (req, res, next) => {
 });
 
 cartRouter.patch("/:cartId/cart_items", async (req, res, next) => {
-    try {
-      const cartId = req.params.cartId;
-      const cart = await getCartById(cartId);
+  try {
+    const cartId = req.params.cartId;
+    const cart = await getCartById(cartId);
 
-      if (cart) {
-        {
-          const updatedCartItems = await attachProductsToCart({
-            cart_id,
-            product_id,
-            price,
-            quantity,
-          });
+    if (cart) {
+      {
+        const updatedCartItems = await attachProductsToCart({
+          cart_id,
+          product_id,
+          price,
+          quantity,
+        });
 
-          res.send(updatedCartItems);
-        }
+        res.send(updatedCartItems);
       }
-    } catch (error) {
-      console.log(error);
     }
+  } catch (error) {
+    console.log(error);
   }
-);
+});
 
 cartRouter.post("/:cartId/product", async (req, res, next) => {
   const { cartId } = req.params;
+  console.log("hello", req.params, req.body);
   try {
-    const { product_id, price, quantity } = req.body;
-    if (cartId && product_id) {
-      const updatedCartWithProduct = await addItemToCart({
+    const { product_id, price, quantity: inputQuant } = req.body;
+    const cart = await getCartItemsByCart(cartId);
+    const bookAlreadyInCart = cart.filter((cartItem) => {
+      console.log(cartItem.product_id == product_id);
+      return cartItem.product_id == product_id;
+    })[0];
+    console.log(cart, bookAlreadyInCart, "potato");
+
+    if (cartId && product_id && !bookAlreadyInCart) {
+      const cart = {
         cart_id: cartId,
         product_id: product_id,
         price,
-        quantity,
-      });
+        quantity: inputQuant,
+      };
+      const updatedCartWithProduct = await addItemToCart(cart);
       res.send(updatedCartWithProduct);
+    } else if (cartId && product_id && bookAlreadyInCart) {
+      console.log("IN THE ELSE IF ");
+
+      const quantityUpdated = await editCartItem(cartId, product_id, {
+        quantity: bookAlreadyInCart.quantity + inputQuant,
+      });
+      console.log(quantityUpdated, "QUANT HERE");
+      res.send(quantityUpdated);
     } else {
       next({
         name: "Incomplete Transaction",
