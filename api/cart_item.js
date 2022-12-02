@@ -47,17 +47,9 @@ cart_itemRouter.patch("/:cart_itemId", requireUser, async (req, res, next) => {
 cart_itemRouter.delete("/:cart_itemId", requireUser, async (req, res, next) => {
   const { cart_itemId } = req.params;
   try {
-    const cart = await getCartItemById(req.params.cart_itemId);
-
-    if (cart) {
-      const deleteCartItem = await destroyItemInCart(cart_itemId);
-      res.send(deleteCartItem);
-    } else {
-      next({
-        name: "unauthorizedUserError",
-        message: `user ${req.user.username} is not allowed to delete ${cart.name}`,
-      });
-    }
+    const deleteCartItem = await destroyItemInCart(cart_itemId);
+    console.log("HELLO DELETED", cart_itemId);
+    res.send(deleteCartItem);
   } catch ({ name, message }) {
     next({ name, message });
   }
