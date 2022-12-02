@@ -40,7 +40,7 @@ userRouter.post("/register", async (req, res, next) => {
   const { username, password, name, admin, email, address_id } = req.body;
   try {
     const user = await getUserByUsername(username);
-
+    
     if (password.length < 8) {
       next({
         error: "Password too short",
@@ -63,7 +63,8 @@ userRouter.post("/register", async (req, res, next) => {
         email,
         address_id,
       });
-      const newCart = await createCart({user_id:newUser.id})
+      console.log(newUser, "this is new user")
+      const newCart = await createCart(newUser.id)
       newUser.cart = newCart
       const token = jwt.sign(newUser, process.env.JWT_SECRET, {
         expiresIn: "1w",

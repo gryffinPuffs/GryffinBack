@@ -66,7 +66,7 @@ async function createTables() {
       password VARCHAR(255) NOT NULL,
       name VARCHAR(255) NOT NULL,
       admin BOOLEAN DEFAULT false,
-      email VARCHAR(255) NOT NULL,
+      email VARCHAR(255) UNIQUE NOT NULL,
       address_id INTEGER REFERENCES address(id)
     );
   CREATE TYPE audience_type AS ENUM ('adult','teen','child');
