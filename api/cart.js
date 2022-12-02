@@ -98,7 +98,7 @@ cartRouter.post("/:cartId/product", async (req, res, next) => {
   const { cartId } = req.params;
   console.log("hello", req.params, req.body);
   try {
-    const { product_id, price, quantity: inputQuant } = req.body;
+    const { product_id, price, quantity: inputQuant, addOne } = req.body;
     const cart = await getCartItemsByCart(cartId);
     const bookAlreadyInCart = cart.filter((cartItem) => {
       console.log(cartItem.product_id == product_id);
@@ -119,7 +119,7 @@ cartRouter.post("/:cartId/product", async (req, res, next) => {
       console.log("IN THE ELSE IF ");
 
       const quantityUpdated = await editCartItem(cartId, product_id, {
-        quantity: bookAlreadyInCart.quantity + inputQuant,
+        quantity: addOne ? bookAlreadyInCart.quantity + 1 : inputQuant,
       });
       console.log(quantityUpdated, "QUANT HERE");
       res.send(quantityUpdated);
