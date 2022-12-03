@@ -330,12 +330,12 @@ async function testDB() {
     const product = await getProductById(1);
     console.log("Result:", product);
 
-    console.log("Calling updateProduct on products[1]");
-    const updateProductResult = await updateProduct(products[1].id, {
-      name: "We Love You",
-      description: "cult classic",
-    });
-    console.log("Result:", updateProductResult);
+    // console.log("Calling updateProduct on products[1]");
+    // const updateProductResult = await updateProduct(products[1].id, {
+    //   name: "We Love You",
+    //   description: "cult classic",
+    // });
+    // console.log("Result:", updateProductResult);
 
     console.log("Calling getProductByName");
     const productName = await getProductByName("AWESOME BOOK");
