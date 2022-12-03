@@ -1,7 +1,14 @@
 const { client } = require("./client");
 const bcrypt = require("bcrypt");
 const { createCart } = require("./cart");
-async function createUser({ username, password, name, admin, email, address_id }) {
+async function createUser({
+  username,
+  password,
+  name,
+  admin,
+  email,
+  address_id,
+}) {
   const saltRound = 10;
   const salt = await bcrypt.genSalt(saltRound);
   const bcryptPassword = await bcrypt.hash(password, salt);
@@ -19,7 +26,7 @@ async function createUser({ username, password, name, admin, email, address_id }
       [username, bcryptPassword, name, admin, email, address_id]
     );
     delete user.password;
-    await createCart(user.id, true)
+    await createCart(user.id, true);
     return user;
   } catch (error) {
     throw error;
@@ -59,9 +66,8 @@ async function getUserById(user_id) {
   }
 }
 
-async function getUserByUsername(username){
+async function getUserByUsername(username) {
   try {
-
     const {
       rows: [user],
     } = await client.query(
@@ -77,11 +83,29 @@ async function getUserByUsername(username){
     throw error;
   }
 }
+async function getAllUsers() {
+  try {
+    // const allUsers = await getUserByUsername();
+    const {
+      rows: [users],
+    } = await client.query(
+      `
+      SELECT *
+      FROM users
+
+      `
+    );
+    return users;
+  } catch (error) {
+    throw error;
+  }
+}
 // update users function to add admin and potentially update users name and addresses
 
-module.exports =  {
+module.exports = {
   createUser,
   getUser,
   getUserById,
-  getUserByUsername
-  }
+  getUserByUsername,
+  getAllUsers,
+};
