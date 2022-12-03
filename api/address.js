@@ -68,4 +68,15 @@ addressRouter.get("/", requireAdmin, async (req, res, next) => {
     next({ name, message, error });
   }
 });
+
+addressRouter.get("/:id", requireUser, async (req, res, next)=>{
+  const id = req.params.id;
+  try {
+    const address = await getAddressById(id);
+    res.send(address);
+  } catch (error) {
+    next({ message: "no user by this username" });
+  }
+});
+
 module.exports = addressRouter;
