@@ -111,6 +111,33 @@ async function getInactiveCartsByUser({ username }) {
   }
 }
 
+async function updateCart({ id, ...fields }) {
+  const setString = Object.keys(fields)
+    .map((key, index) => `"${key}"=$${index + 1}`)
+    .join(", ");
+    if (setString.length ===0){
+    return;
+    }
+  try {
+
+      const {
+        rows: [cart],
+      } = await client.query(
+        `
+            UPDATE carts
+            SET ${setString}
+            WHERE id=${id}
+            RETURNING *;
+            `,
+        Object.values(fields)
+      );
+      return cart;
+
+  } catch (error) {
+    throw error;
+  }
+}
+
 module.exports = {
   createCart,
   getCartById,
@@ -118,4 +145,5 @@ module.exports = {
   getActiveCartByUserId,
   getInactiveCartsByUser,
   getAllCarts,
+  updateCart,
 };

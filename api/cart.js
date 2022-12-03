@@ -6,6 +6,8 @@ const {
   createCart,
   getActiveCartByUser,
   getInactiveCartsByUser,
+  getCartById,
+  updateCart,
 } = require("../db/cart");
 const {
   addItemToCart,
@@ -93,6 +95,39 @@ cartRouter.patch("/:cartId/cart_items", async (req, res, next) => {
     console.log(error);
   }
 });
+
+cartRouter.patch("/:cartId",  async (req, res, next) => {
+  const { cartId } = req.params;
+  const { user_id, active } = req.body;
+  const updateFields = {};
+  if(user_id){
+    updateFields.user_id=user_id
+  }
+  if (active) {
+    updateFields.audience = audience;
+  }
+  try {
+    const originalCart = await getCartById(cartId);
+
+    if (originalCart) {
+      const updatedCart = await updateCart(cartId, {
+        user_id,
+        active,
+      });
+
+      res.send(updatedCart);
+    } else {
+      next({
+        name: "productDoesNotExist",
+        message: `Product ${productId} not found`,
+        Error: "Product does not exist",
+      });
+    }
+  } catch ({ name, message, error }) {
+    next({ name, message, error });
+  }
+});
+
 
 cartRouter.post("/:cartId/product", async (req, res, next) => {
   const { cartId } = req.params;
