@@ -5,6 +5,7 @@ const {
   getUser,
   getUserById,
   getUserByUsername,
+  getAllUsers,
 } = require("./user");
 const bcrypt = require("bcrypt");
 const {
@@ -380,6 +381,10 @@ async function testDB() {
     console.log("getting product audience");
     const audienceType = await getProductByAudience("adult");
     console.log("this is product audience:", audienceType);
+
+    console.log("testing getting all users");
+    const allUsers = await getAllUsers();
+    console.log("this is all users", allUsers);
 
     // console.log("deleting cart item");
     // // const deletedItem = await destroyItemInCart(1);
