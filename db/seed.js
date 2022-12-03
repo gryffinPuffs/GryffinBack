@@ -381,12 +381,12 @@ async function testDB() {
     const audienceType = await getProductByAudience("adult");
     console.log("this is product audience:", audienceType);
 
-    console.log("deleting cart item");
-    // const deletedItem = await destroyItemInCart(1);
+    // console.log("deleting cart item");
+    // // const deletedItem = await destroyItemInCart(1);
 
-    console.log("deleting product");
-    const deletedProduct = await destroyProduct(3);
-    console.log("this is deleted product:", deletedProduct);
+    // console.log("deleting product");
+    // const deletedProduct = await destroyProduct(3);
+    // console.log("this is deleted product:", deletedProduct);
     console.log("Finished DB Tests");
   } catch (error) {
     console.log("Error during testDB");
