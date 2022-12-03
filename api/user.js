@@ -8,6 +8,7 @@ const {
   getUserByUsername,
   getAllUsers,
 } = require("../db/user");
+const { requireAdmin } = require("./utils");
 
 userRouter.use((req, res, next) => {
   console.log("A request is being made to /user");
@@ -115,6 +116,17 @@ userRouter.get("/:username", async (req, res, next) => {
     next({ message: "no user by this username" });
   }
 });
+//*currently working here*
+// userRouter.get("/:username", requireAdmin, async (req, res, next) => {
+//   const username = req.params.username;
+//   try {
+//     const users = await getAllUsers(username);
+//     console.log(users, "this is all of our Users");
+//     res.send(users);
+//   } catch (error) {
+//     next();
+//   }
+// });
 
 //make get/users route make sure person is logged in and has admin access
 
