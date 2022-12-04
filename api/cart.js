@@ -104,7 +104,7 @@ cartRouter.patch("/:cartId",  async (req, res, next) => {
     updateFields.user_id=user_id
   }
   if (active) {
-    updateFields.audience = audience;
+    updateFields.active = active;
   }
   try {
     const originalCart = await getCartById(cartId);
@@ -118,9 +118,9 @@ cartRouter.patch("/:cartId",  async (req, res, next) => {
       res.send(updatedCart);
     } else {
       next({
-        name: "productDoesNotExist",
-        message: `Product ${productId} not found`,
-        Error: "Product does not exist",
+        name: "cartDoesNotExist",
+        message: `cart ${cartId} not found`,
+        Error: "cart does not exist",
       });
     }
   } catch ({ name, message, error }) {
