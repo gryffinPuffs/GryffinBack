@@ -10,7 +10,7 @@ const {
   getProductByAudience,
   destroyProduct,
 } = require("../db/product");
-const { requireAdmin } = require("./utils");
+const { requireAdmin, requireUser } = require("./utils");
 
 productRouter.use((req, res, next) => {
   console.log("A request is being made to /product");
@@ -50,7 +50,7 @@ productRouter.get("/audience/:type", async (req, res, next) => {
 });
 
 //POST /api/products
-productRouter.post("/", requireAdmin, async (req, res, next) => {
+productRouter.post("/", requireUser, async (req, res, next) => {
   try {
     const {
       name,
