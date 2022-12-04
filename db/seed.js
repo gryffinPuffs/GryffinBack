@@ -187,6 +187,20 @@ async function createInitialProduct() {
         "Finnegans Wake is the book of Here Comes Everybody and Anna Livia Plurabelle and their family - their book, but in a curious way the book of us all as well as all our books. Joyce's last great work, it is not comprised of many borrowed styles, like Ulysses, but, rather, formulated as one dense, tongue-twisting soundscape. This 'language' is based on English vocabulary and syntax but, at the same time, self-consciously designed to function as a pun machine with an astonishing capacity for resisting singularity of meaning. Announcing a 'revolution of the word', this astonishing book amounts to a powerfully resonant cultural critique - a unique kind of miscommunication which, far from stabilizing the world in meaning, constructs a universe radically unfixed by a wild diversity of possibilities and potentials. It also remains the most hilarious, 'obscene', book of innuendos ever to be imagined.",
       audience: "adult",
     });
+
+    await createProduct({
+      name: "The Hitchhiker's Guide to the Galaxy",
+      price: 150,
+      image_url:
+        "https://res.cloudinary.com/dew089bag/image/upload/v1670165190/Ultimate.jpg",
+      image_url2:
+        "https://res.cloudinary.com/dew089bag/image/upload/v1670165241/Ultimate%20Page.jpg",
+      author: "Douglas Adams",
+      description:
+        "It’s an ordinary Thursday morning for Arthur Dent . . . until his house gets demolished. The Earth follows shortly after to make way for a new hyperspace express route, and Arthur’s best friend has just announced that he’s an alien. After that, things get much, much worse. With just a towel, a small yellow fish, and a book, Arthur has to navigate through a very hostile universe in the company of a gang of unreliable aliens. Luckily the fish is quite good at languages. And the book is The Hitchhiker’s Guide to the Galaxy . . . which helpfully has the words DON’T PANIC inscribed in large, friendly letters on its cover.",
+      audience: "adult",
+    });
+
     await createProduct({
       name: "Le Petit Prince",
       price: 498,
@@ -199,6 +213,33 @@ async function createInitialProduct() {
         "A pilot crashes in the Sahara Desert and encounters a strange young boy who calls himself the Little Prince. The Little Prince has traveled there from his home on a lonely, distant asteroid with a single rose. The story that follows is a beautiful and at times heartbreaking meditation on human nature",
       audience: "child",
     });
+
+    await createProduct({
+      name: "Winnie-the-Pooh",
+      price: 498,
+      image_url:
+        "https://res.cloudinary.com/dew089bag/image/upload/v1670162089/Winnie%20the%20Pooh.jpg",
+      image_url2:
+        "https://res.cloudinary.com/dew089bag/image/upload/v1670162183/Winnie%20Page.jpg",
+      author: "A.A. Milne",
+      description:
+        "The book 'Winnie the Pooh' by A. A. Milne is a collection of short stories featuring the teddy bear of Christopher Robin named Winnie the Pooh. These stories are a narrative within a narrative, where the narrator narrates these stories about Winnie the Pooh to Christopher Robin.",
+      audience: "child",
+    });
+
+    await createProduct({
+      name: "Where the Wild Things Are",
+      price: 498,
+      image_url:
+        "https://res.cloudinary.com/dew089bag/image/upload/v1670164631/Where%20the%20Wild%20Things%20Are.jpg",
+      image_url2:
+        "https://res.cloudinary.com/dew089bag/image/upload/v1670164783/Where%20the%20Wild%20Things%20Page.jpg",
+      author: "Maurice Sendak",
+      description:
+        "The story focuses on a young boy named Max who, after dressing in his wolf costume, wreaks such havoc through his household that he is sent to bed without his supper. Max's bedroom undergoes a mysterious transformation into a jungle environment, and he winds up sailing to an island inhabited by monsters, simply called the Wild Things. The Wild Things try to scare Max, but to no avail. After stopping and intimidating the creatures, Max is hailed as the king of the Wild Things and enjoys a playful romp with his subjects. Finally, he stops them and sends them to bed without their supper. However, to the Wild Things' dismay, he starts to feel lonely and decides to give up being king and return home. The creatures do not want him to go and throw themselves into fits of rage as Max sails away home. Upon returning to his bedroom, Max discovers a hot supper waiting for him.",
+      audience: "child",
+    });
+
     await createProduct({
       name: "The Lord of the Rings Trilogy: First Edition Set",
       price: 2455,
