@@ -21,6 +21,8 @@ userRouter.post("/login", async (req, res, next) => {
     const user = await getUser({ username, password });
 
     if (user) {
+      const cart= await getActiveCartByUserId({userId:user.id})
+      user.cart=cart
       const token = jwt.sign(user, process.env.JWT_SECRET, {
         expiresIn: "1w",
       });
