@@ -218,7 +218,7 @@ async function createInitialProduct() {
       name: "Winnie-the-Pooh",
       price: 498,
       image_url:
-        "https://res.cloudinary.com/dew089bag/image/upload/v1670196656/Winnie_the_Pooh_yy0ah9.png",
+        "https://res.cloudinary.com/dew089bag/image/upload/v1670198285/Winnie_vqcpba.png",
       image_url2:
         "https://res.cloudinary.com/dew089bag/image/upload/v1670162183/Winnie%20Page.jpg",
       author: "A.A. Milne",
@@ -256,7 +256,7 @@ async function createInitialProduct() {
       name: "Harry Potter and the Philosopher's Stone: Signed First Edition",
       price: 2399,
       image_url:
-        "https://res.cloudinary.com/dew089bag/image/upload/v1670196661/HP_Philosopher_s_Stone_First_Edition_ckx9sw.png",
+        "https://res.cloudinary.com/dew089bag/image/upload/v1670198611/HP_Philosopher_s_o7drpt.png",
       image_url2:
         "https://res.cloudinary.com/dew089bag/image/upload/v1669387673/HP%20Philosopher%20page.jpg",
       author: "J. K. Rowling",
@@ -316,7 +316,7 @@ async function createInitialProduct() {
       name: "Harry Potter and the Half-Blood Prince",
       price: 399,
       image_url:
-        "https://res.cloudinary.com/dew089bag/image/upload/v1670196657/HP_and_the_Half_Blood_Prince_gb2qfz.png",
+        "https://res.cloudinary.com/dew089bag/image/upload/v1670198867/Half_Blood_Prince_vzdgrp.png",
       image_url2:
         "https://res.cloudinary.com/dew089bag/image/upload/v1670076425/HP%20Half%20Blood%20Page.jpg",
       author: "J. K. Rowling",
