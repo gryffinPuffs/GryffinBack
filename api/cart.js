@@ -98,11 +98,9 @@ cartRouter.patch("/:cartId/cart_items", async (req, res, next) => {
 
 cartRouter.patch("/:cartId",  async (req, res, next) => {
   const { cartId } = req.params;
-  const { user_id, active } = req.body;
+  const {  active } = req.body;
   const updateFields = {};
-  if(user_id){
-    updateFields.user_id=user_id
-  }
+
   if (active) {
     updateFields.active = active;
   }
@@ -110,10 +108,9 @@ cartRouter.patch("/:cartId",  async (req, res, next) => {
     const originalCart = await getCartById(cartId);
 
     if (originalCart) {
-      const updatedCart = await updateCart(cartId, {
-        user_id,
+      const updatedCart = await updateCart({id:cartId, fields:{
         active,
-      });
+      }});
 
       res.send(updatedCart);
     } else {

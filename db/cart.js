@@ -36,6 +36,7 @@ async function getAllCarts() {
   }
 }
 async function getCartById(id) {
+  console.log(id, "are you here??")
   try {
     const {
       rows: [cart],
@@ -85,6 +86,7 @@ async function getActiveCartByUserId({userId}) {
     `,
       [userId]
     );
+    console.log(cart, "The OG CART NO CHANGES ")
     const cartsProducts = await attachProductsToCart(cart)
     console.log(cartsProducts, "potato")
     return cartsProducts;
@@ -111,7 +113,7 @@ async function getInactiveCartsByUser({ username }) {
   }
 }
 
-async function updateCart({ id, ...fields }) {
+async function updateCart({ id, fields = {} }) {
   const setString = Object.keys(fields)
     .map((key, index) => `"${key}"=$${index + 1}`)
     .join(", ");
