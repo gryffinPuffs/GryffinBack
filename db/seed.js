@@ -155,7 +155,7 @@ async function createInitialProduct() {
       name: "DUNE",
       price: 150,
       image_url:
-        "https://res.cloudinary.com/dew089bag/image/upload/v1669314312/Dune%20First%20Edition-signed%20by%20FH.jpg",
+        "https://res.cloudinary.com/dew089bag/image/upload/v1670196663/Dune_First_Edition-signed_by_FH_ptupoq.png",
       image_url2:
         "https://res.cloudinary.com/dew089bag/image/upload/v1669314369/Dune%20page.jpg",
       author: "Frank Herbert",
@@ -167,7 +167,7 @@ async function createInitialProduct() {
       name: "Do Androids Dream of Electric Sheep?: Signed First Edition",
       price: 150,
       image_url:
-        "https://res.cloudinary.com/dew089bag/image/upload/v1669326496/Androids%20Dream%20Page%20First%20Edition.jpg",
+        "https://res.cloudinary.com/dew089bag/image/upload/v1670196667/Androids_Dream_Page_First_Edition_qeravi.png",
       image_url2:
         "https://res.cloudinary.com/dew089bag/image/upload/v1670074512/DADES:%20Page.jpg",
       author: "Philip K. Dick",
@@ -179,7 +179,7 @@ async function createInitialProduct() {
       name: "Finnegan's Wake",
       price: 150,
       image_url:
-        "https://res.cloudinary.com/dew089bag/image/upload/v1669473339/Finnegans%20Wake%20James%20Joyce.jpg",
+        "https://res.cloudinary.com/dew089bag/image/upload/v1670196657/Finnegans_Wake_James_Joyce_hr5hs5.png",
       image_url2:
         "https://res.cloudinary.com/dew089bag/image/upload/v1669473940/Finnegans%20Wake%20Page.jpg",
       author: "James Joyce",
@@ -218,7 +218,7 @@ async function createInitialProduct() {
       name: "Winnie-the-Pooh",
       price: 498,
       image_url:
-        "https://res.cloudinary.com/dew089bag/image/upload/v1670162089/Winnie%20the%20Pooh.jpg",
+        "https://res.cloudinary.com/dew089bag/image/upload/v1670196656/Winnie_the_Pooh_yy0ah9.png",
       image_url2:
         "https://res.cloudinary.com/dew089bag/image/upload/v1670162183/Winnie%20Page.jpg",
       author: "A.A. Milne",
@@ -231,7 +231,7 @@ async function createInitialProduct() {
       name: "Where the Wild Things Are",
       price: 498,
       image_url:
-        "https://res.cloudinary.com/dew089bag/image/upload/v1670164631/Where%20the%20Wild%20Things%20Are.jpg",
+        "https://res.cloudinary.com/dew089bag/image/upload/v1670196659/Where_the_Wild_Things_Are_kvcuvt.png",
       image_url2:
         "https://res.cloudinary.com/dew089bag/image/upload/v1670164783/Where%20the%20Wild%20Things%20Page.jpg",
       author: "Maurice Sendak",
@@ -244,7 +244,7 @@ async function createInitialProduct() {
       name: "The Lord of the Rings Trilogy: First Edition Set",
       price: 2455,
       image_url:
-        "https://res.cloudinary.com/dew089bag/image/upload/v1669328566/LOTR%20First%20Edition.jpg",
+        "https://res.cloudinary.com/dew089bag/image/upload/v1670196664/LOTR_First_Edition_cdewkg.png",
       image_url2:
         "https://res.cloudinary.com/dew089bag/image/upload/v1669329160/LOTR%20Page%203d.jpg",
       author: "J. R. R. TOLKEIN",
@@ -256,7 +256,7 @@ async function createInitialProduct() {
       name: "Harry Potter and the Philosopher's Stone: Signed First Edition",
       price: 2399,
       image_url:
-        "https://res.cloudinary.com/dew089bag/image/upload/v1669387490/HP%20Philosopher%27s%20Stone%20First%20Edition.jpg",
+        "https://res.cloudinary.com/dew089bag/image/upload/v1670196661/HP_Philosopher_s_Stone_First_Edition_ckx9sw.png",
       image_url2:
         "https://res.cloudinary.com/dew089bag/image/upload/v1669387673/HP%20Philosopher%20page.jpg",
       author: "J. K. Rowling",
@@ -280,7 +280,7 @@ async function createInitialProduct() {
       name: "Harry Potter and the Prisoner of Azkaban: Signed First Edition",
       price: 399,
       image_url:
-        "https://res.cloudinary.com/dew089bag/image/upload/v1669388275/harry-potter-and-the-prisoner-of-azkaban-j-k-rowling-first-edition-signed_nj0wjf.jpg",
+        "https://res.cloudinary.com/dew089bag/image/upload/v1670196661/HP_prisoner_kpniyx.png",
       image_url2:
         "https://res.cloudinary.com/dew089bag/image/upload/v1670073958/HP%20Prisoner%20of%20Azkaban%20Page.jpg",
       author: "J. K. Rowling",
@@ -292,7 +292,7 @@ async function createInitialProduct() {
       name: "Harry Potter and the Goblet of Fire: Signed First Edition",
       price: 399,
       image_url:
-        "https://res.cloudinary.com/dew089bag/image/upload/v1669388397/HP%20Goblet%20of%20Fire%20Signed.jpg",
+        "https://res.cloudinary.com/dew089bag/image/upload/v1670196662/HP_Goblet_of_Fire_Signed_gnm63y.png",
       image_url2:
         "https://res.cloudinary.com/dew089bag/image/upload/v1669388708/Harry%20Potter%20Goblet%20of%20Fire%20Page.jpg",
       author: "J. K. Rowling",
@@ -304,7 +304,7 @@ async function createInitialProduct() {
       name: "Harry Potter and the Order of the Phoenix",
       price: 399,
       image_url:
-        "https://res.cloudinary.com/dew089bag/image/upload/v1669388468/HP%20Order%20of%20the%20Phoenix.jpg",
+        "https://res.cloudinary.com/dew089bag/image/upload/v1670196661/HP_Order_of_the_Phoenix_kj4h6w.png",
       image_url2:
         "https://res.cloudinary.com/dew089bag/image/upload/v1669388549/HP%20Order%20of%20the%20Phoenix%20Page.jpg",
       author: "J. K. Rowling",
@@ -316,7 +316,7 @@ async function createInitialProduct() {
       name: "Harry Potter and the Half-Blood Prince",
       price: 399,
       image_url:
-        "https://res.cloudinary.com/dew089bag/image/upload/v1670076323/HP%20and%20the%20Half%20Blood%20Prince.jpg",
+        "https://res.cloudinary.com/dew089bag/image/upload/v1670196657/HP_and_the_Half_Blood_Prince_gb2qfz.png",
       image_url2:
         "https://res.cloudinary.com/dew089bag/image/upload/v1670076425/HP%20Half%20Blood%20Page.jpg",
       author: "J. K. Rowling",
