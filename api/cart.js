@@ -64,12 +64,13 @@ cartRouter.get("/:username/inactive", requireUser, async (req, res, next) => {
 });
 // POST /api/cart
 cartRouter.post("/", requireUser, async (req, res, next) => {
-  const { user_id, active } = req.body;
-  const cartData = { user_id, active };
-  const cart = await createCart(cartData);
+  userId = req.user.id
+  const cart = await createCart(userId);
   if (cart) {
-    res.send(cart);
+    console.log('HERE IS YOUR NEW CART!!!!!!!!!!!!!!!!!')
+    res.send(cart)
   } else {
+
     return null;
   }
 });
@@ -110,8 +111,8 @@ cartRouter.patch("/:cartId",  async (req, res, next) => {
     if (originalCart) {
       const updatedCart = await updateCart({id:cartId, fields:{
         active,
-      }});
 
+      }});
       res.send(updatedCart);
     } else {
       next({
