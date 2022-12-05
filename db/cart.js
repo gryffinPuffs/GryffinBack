@@ -3,17 +3,17 @@ const { client } = require("./client");
 const { attachProductsToCart  } = require("./product");
 const {getUserByUsername} = require('./User')
 
-async function createCart( user_id, active ) {
+async function createCart( user_id ) {
   try {
     const {
       rows: [cart],
     } = await client.query(
       `
-      INSERT INTO carts(user_id, active)
-      VALUES($1, $2)
+      INSERT INTO carts(user_id)
+      VALUES($1)
       RETURNING *;
       `,
-      [user_id, active]
+      [user_id]
     );
     return cart;
   } catch (error) {
@@ -36,7 +36,7 @@ async function getAllCarts() {
   }
 }
 async function getCartById(id) {
-  console.log(id, "are you here??")
+
   try {
     const {
       rows: [cart],
