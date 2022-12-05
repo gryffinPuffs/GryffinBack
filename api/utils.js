@@ -1,5 +1,4 @@
 function requireUser(req, res, next) {
-    console.log(req.user, "requireUser working")
   if (!req.user) {
     next({
       error: "401",
