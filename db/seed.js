@@ -164,7 +164,7 @@ async function createInitialProduct() {
       audience: "adult",
     });
     await createProduct({
-      name: "Do Androids Dream of Electric Sheep?: Signed First Edition",
+      name: "Do Androids Dream of Electric Sheep? Signed First Edition",
       price: 150,
       image_url:
         "https://res.cloudinary.com/dew089bag/image/upload/v1670196667/Androids_Dream_Page_First_Edition_qeravi.png",
@@ -241,6 +241,32 @@ async function createInitialProduct() {
     });
 
     await createProduct({
+      name: "Dr. Seuss's Ultimate Beginning Reader Collection",
+      price: 1498,
+      image_url:
+        "https://res.cloudinary.com/dew089bag/image/upload/v1670332492/dr_seuss_book_set_i9djbp.png",
+      image_url2:
+        "https://res.cloudinary.com/dew089bag/image/upload/v1670332620/32de93ee3391f72d9771bfe8f57786ad89-22-dr-seuss.rsquare.w700_zzaebu.jpg",
+      author: "Dr. Seuss",
+      description:
+        "Creator and fancier of fanciful beasts, your affinity for flying elephants and man-eating mosquitoes makes us rejoice you were not around to be Director of Admissions on Mr. Noah's ark. But our rejoicing in your career is far more positive: as author and artist you singlehandedly have stood as St. George between a generation of exhausted parents and the demon dragon of unexhausted children on a rainy day. There was an inimitable wriggle in your work long before you became a producer of motion pictures and animated cartoons and, as always with the best of humor, behind the fun there has been intelligence, kindness, and a feel for humankind. An Academy Award winner and holder of the Legion of Merit for war film work, you have stood these many years in the academic shadow of your learned friend Dr. Seuss; and because we are sure the time has come when the good doctor would want you to walk by his side as a full equal and because your College delights to acknowledge the distinction of a loyal son, Dartmouth confers on you her Doctorate of Humane Letters.",
+      audience: "child",
+    });
+
+    await createProduct({
+      name: "The Chronicles of Narnia: The Lion, the Witch, and the Wardrobe",
+      price: 1498,
+      image_url:
+        "https://res.cloudinary.com/dew089bag/image/upload/v1670112668/LWW.jpg",
+      image_url2:
+        "https://res.cloudinary.com/dew089bag/image/upload/v1670112753/LWW%20page.jpg",
+      author: "C.S. Lewis",
+      description:
+        "Four adventurous siblings—Peter, Susan, Edmund, and Lucy Pevensie—step through a wardrobe door and into the land of Narnia, a land frozen in eternal winter and enslaved by the power of the White Witch. But when almost all hope is lost, the return of the Great Lion, Aslan, signals a great change . . . and a great sacrifice",
+      audience: "child",
+    });
+
+    await createProduct({
       name: "The Lord of the Rings Trilogy: First Edition Set",
       price: 2455,
       image_url:
@@ -250,6 +276,42 @@ async function createInitialProduct() {
       author: "J. R. R. TOLKEIN",
       description:
         "The Lord of the Rings is an epic high-fantasy novel by English author and scholar J. R. R. Tolkien. Set in Middle-earth, intended to be Earth at some time in the distant past, the story began as a sequel to Tolkien's 1937 children's book The Hobbit, but eventually developed into a much larger work.",
+      audience: "adult",
+    });
+    await createProduct({
+      name: "Game of Thrones: A Song of Fire and Ice",
+      price: 2455,
+      image_url:
+        "https://res.cloudinary.com/dew089bag/image/upload/v1670249184/GOT_l16bsj.png",
+      image_url2:
+        "https://res.cloudinary.com/dew089bag/image/upload/v1670330057/GOT%20page.jpg",
+      author: "George R. R. Martin",
+      description:
+        "Winter is coming. Such is the stern motto of House Stark, the northernmost of the fiefdoms that owe allegiance to King Robert Baratheon in far-off King’s Landing. There Eddard Stark of Winterfell rules in Robert’s name. There his family dwells in peace and comfort: his proud wife, Catelyn; his sons Robb, Brandon, and Rickon; his daughters Sansa and Arya; and his bastard son, Jon Snow. Far to the north, behind the towering Wall, lie savage Wildings and worse—unnatural things relegated to myth during the centuries-long summer, but proving all too real and all too deadly in the turning of the season",
+      audience: "adult",
+    });
+    await createProduct({
+      name: "Wheel of Time Box Set",
+      price: 9999,
+      image_url:
+        "https://res.cloudinary.com/dew089bag/image/upload/v1670248079/Wheel_of_Time_Series_slahvr.png",
+      image_url2:
+        "https://res.cloudinary.com/dew089bag/image/upload/v1670247806/wheel%20of%20time%20page.jpg",
+      author: "Robert Jordan",
+      description:
+        "When a vicious band of half-men, half beasts invade the Two Rivers seeking their master’s enemy, Moiraine persuades Rand al’Thor and his friends to leave their home and enter a larger unimaginable world filled with dangers waiting in the shadows and in the light",
+      audience: "adult",
+    });
+    await createProduct({
+      name: "Don Quijote de la Mancha",
+      price: 599,
+      image_url:
+        "https://res.cloudinary.com/dew089bag/image/upload/v1670248368/Don_Quixote_xtdhpx.png",
+      image_url2:
+        "https://res.cloudinary.com/dew089bag/image/upload/v1670247762/don-quixote-page.jpg",
+      author: "Miguel de Cervantes ",
+      description:
+        "Don Quixote has become so entranced reading tales of chivalry that he decides to turn knight errant himself. In the company of his faithful squire, Sancho Panza, these exploits blossom in all sorts of wonderful ways. While Quixote's fancy often leads him astray—he tilts at windmills, imagining them to be giants—Sancho acquires cunning and a certain sagacity. Sane madman and wise fool, they roam the world together-and together they have haunted readers' imaginations for nearly four hundred years.",
       audience: "adult",
     });
     await createProduct({
@@ -268,7 +330,7 @@ async function createInitialProduct() {
       name: "Harry Potter and the Chamber of Secrets",
       price: 399,
       image_url:
-        "https://res.cloudinary.com/dew089bag/image/upload/v1670074868/HP%20and%20the%20Chamber%20of%20Secrets.jpg",
+        "https://res.cloudinary.com/dew089bag/image/upload/v1670333592/HP_and_the_Chamber_of_Secrets_hsccoo.png",
       image_url2:
         "https://res.cloudinary.com/dew089bag/image/upload/v1670075003/HP%20Chamber%20of%20Secrets%20Page.jpg",
       author: "J. K. Rowling",
@@ -328,12 +390,24 @@ async function createInitialProduct() {
       name: "Harry Potter and the Deathly Hallows: Signed First Edition",
       price: 399,
       image_url:
-        "https://res.cloudinary.com/dew089bag/image/upload/v1670076599/HP%20and%20the%20Deathly%20Hallows%20FES.jpg",
+        "https://res.cloudinary.com/dew089bag/image/upload/v1670333462/HP_and_the_Deathly_Hallows_FES_stpa3n.png",
       image_url2:
         "https://res.cloudinary.com/dew089bag/image/upload/v1670076748/Dealthy%20Hallows%20Page.jpg",
       author: "J. K. Rowling",
       description:
         "The heart of Book 7 is a hero's mission--not just in Harry's quest for the Horcruxes, but in his journey from boy to man--and Harry faces more danger than that found in all six books combined, from the direct threat of the Death Eaters and you-know-who, to the subtle perils of losing faith in himself. Attentive readers would do well to remember Dumbledore's warning about making the choice between what is right and what is easy, and know that Rowling applies the same difficult principle to the conclusion of her series. While fans will find the answers to hotly speculated questions about Dumbledore, Snape, and you-know-who, it is a testament to Rowling's skill as a storyteller that even the most astute and careful reader will be taken by surprise.",
+      audience: "teen",
+    });
+    await createProduct({
+      name: "Animorphs: Box Tin Set",
+      price: 1299,
+      image_url:
+        "https://res.cloudinary.com/dew089bag/image/upload/v1670331856/animorphs_negqrc.png",
+      image_url2:
+        "https://res.cloudinary.com/dew089bag/image/upload/v1670332022/The_Invasion_Front_Cover_nlrea5.jpg",
+      author: "Katherine Applegate",
+      description:
+        "The story revolves around five humans: Jake, Marco, Cassie, Rachel and Tobias, and one alien, Aximili-Esgarrouth-Isthill (nicknamed Ax), who obtain the ability to transform into any animal they touch. Naming themselves Animorphs (a portmanteau of animal morphers), they use their ability to battle a secret alien infiltration of Earth by a parasitic race of aliens resembling large slugs called Yeerks, that can take any living creatures as a host by entering and merging with their brain through the ear canal. The Animorphs fight as a guerilla force against the Yeerks who are led by Visser Three. Throughout the series, the Animorphs carefully protect their identities; the Yeerks assume that the Animorphs are a strike force sent by the Andalites, the alien race to which Ax belongs that created the transformation technology, to prevent them from conquering Earth. To protect their families from Yeerk reprisals, the Animorphs maintain this façade",
       audience: "teen",
     });
 
