@@ -1,4 +1,3 @@
-const { getCartItemsByCart } = require("./cart_item");
 const { client } = require("./client");
 const { attachProductsToCart  } = require("./product");
 const {getUserByUsername} = require('./user')

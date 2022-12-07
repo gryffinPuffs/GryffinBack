@@ -1,5 +1,4 @@
 const { client } = require("./client");
-const { getUser } = require("./user");
 
 async function createProduct({
   name,

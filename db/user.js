@@ -85,7 +85,6 @@ async function getUserByUsername(username) {
 }
 async function getAllUsers() {
   try {
-    // const allUsers = await getUserByUsername();
     const { rows: users } = await client.query(
       `
       SELECT *
@@ -104,6 +103,6 @@ module.exports = {
   createUser,
   getUser,
   getUserById,
-  getUserByUsername,
   getAllUsers,
+  getUserByUsername
 };
