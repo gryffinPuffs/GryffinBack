@@ -265,6 +265,43 @@ async function createInitialProduct() {
         "Four adventurous siblings—Peter, Susan, Edmund, and Lucy Pevensie—step through a wardrobe door and into the land of Narnia, a land frozen in eternal winter and enslaved by the power of the White Witch. But when almost all hope is lost, the return of the Great Lion, Aslan, signals a great change . . . and a great sacrifice",
       audience: "child",
     });
+    await createProduct({
+      name: "Alice's Adventures in Wonderland",
+      price: 398,
+      image_url:
+        "https://res.cloudinary.com/dew089bag/image/upload/v1670163828/Alice%20in%20Wonderland.jpg",
+      image_url2:
+        "https://res.cloudinary.com/dew089bag/image/upload/v1670163915/Alice%20in%20Wonderland%20Page.jpg",
+      author: "Lewis Carroll",
+      description:
+        "Alice's Adventures in Wonderland is an 1865 novel written by English author Charles Lutwidge Dodgson under the pseudonym Lewis Carroll. It tells of a girl named Alice falling through a rabbit hole into a fantasy world populated by peculiar, anthropomorphic creatures. The tale plays with logic, giving the story lasting popularity with adults as well as with children. It is considered to be one of the best examples of the literary nonsense genre. Its narrative course and structure, characters and imagery have been enormously influential in both popular culture and literature, especially in the fantasy genre.",
+      audience: "child",
+    });
+
+    await createProduct({
+      name: "Bunnicula: A Rabbit-Tale of Mystery",
+      price: 398,
+      image_url:
+        "https://res.cloudinary.com/dew089bag/image/upload/v1670112213/bunnicula%202.jpg",
+      image_url2:
+        "https://res.cloudinary.com/dew089bag/image/upload/v1670112104/bunnicula.jpg",
+      author: "Deborah Howe",
+      description:
+        "Before it's too late, Harold the dog and Chester the cat must find out the truth about the newest pet in the Monroe household -- a suspicious-looking bunny with unusual habits...and fangs!",
+      audience: "child",
+    });
+
+    await createProduct({
+      name: "The Neverending Story",
+      price: 398,
+      image_url: "https://m.media-amazon.com/images/I/51lk9sIp1YL.jpg",
+      image_url2:
+        "https://res.cloudinary.com/dew089bag/image/upload/v1670112104/bunnicula.jpg",
+      author: "Deborah Howe",
+      description:
+        "When Bastian happens upon an old book called The Neverending Story, he's swept into the magical world of Fantastica--so much that he finds he has actually become a character in the story! And when he realizes that this mysteriously enchanted world is in great danger, he also discovers that he is the one chosen to save it. Can Bastian overcome the barrier between reality and his imagination in order to save Fantastica?",
+      audience: "child",
+    });
 
     await createProduct({
       name: "The Lord of the Rings Trilogy: First Edition Set",
