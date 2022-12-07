@@ -46,7 +46,7 @@ userRouter.post("/login", async (req, res, next) => {
 userRouter.post("/register", async (req, res, next) => {
   const { username, password, name, admin, email, address_id } = req.body;
   try {
-    const user = await getUserByUsername(username);
+    const user = await getWithUsername(username);
 
     if (password.length < 8) {
       next({
@@ -111,7 +111,7 @@ userRouter.get("/me", async (req, res, next) => {
 userRouter.get("/:username", async (req, res, next) => {
   const username = req.params.username;
   try {
-    const user = await getUserByUsername(username);
+    const user = await getWithUsername(username);
     console.log(user, "this is our user");
     res.send(user);
   } catch (error) {

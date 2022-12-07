@@ -91,7 +91,7 @@ async function getActiveCartByUserId({userId}) {
 }
 async function getInactiveCartsByUser({ username }) {
   try {
-    const user = await getUserByUsername(username);
+    const user = await getWithUsername(username);
     const userId = user.id;
     const { rows: carts } = await client.query(
       `
