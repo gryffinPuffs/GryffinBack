@@ -107,7 +107,9 @@ async function getInactiveCartsByUser({ username }) {
     `,
       [userId]
     );
-    return carts;
+    const cartsProducts=Promise.all(carts.map((cart)=>{return attachProductsToCart(cart)}))
+
+    return cartsProducts;
   } catch (error) {
     throw error;
   }
