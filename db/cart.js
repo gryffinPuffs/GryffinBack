@@ -1,6 +1,5 @@
 const { client } = require("./client");
 const { attachProductsToCart  } = require("./product");
-const {getWithUsername} = require('./users')
 
 async function createCart( user_id ) {
   try {
@@ -51,9 +50,6 @@ async function getCartById(id) {
 }
 async function getActiveCartByUser({username}) {
   try {
-    const user = await getWithUsername(username)
-    const userId = user.id;
-
     const {
       rows: [cart],
     } = await client.query(
@@ -61,9 +57,9 @@ async function getActiveCartByUser({username}) {
     SELECT carts.*, users.username AS user_username
     FROM carts
     JOIN users on users.id=carts.user_id
-    WHERE user_id = $1 AND carts.active = true
+    WHERE username = $1 AND carts.active = true
     `,
-      [userId]
+      [username]
     );
 
     const cartsProducts = await attachProductsToCart(cart)
