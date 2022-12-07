@@ -38,7 +38,7 @@ apiRouter.use(async (req, res, next) => {
     });
   }
 });
-const userRouter = require("./user");
+const userRouter = ");
 apiRouter.use("/user", userRouter);
 
 const addressRouter = require("./address");

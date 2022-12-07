@@ -1,6 +1,6 @@
 const { client } = require("./client");
 const { attachProductsToCart  } = require("./product");
-const {getUserByUsername} = require('./user')
+const {getUserByUsername} = require('./users')
 
 async function createCart( user_id ) {
   try {
