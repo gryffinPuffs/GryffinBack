@@ -1,6 +1,6 @@
 const { client } = require("./client");
 const { attachProductsToCart  } = require("./product");
-const {getUserByUsername} = require('./users')
+const {getWithUsername} = require('./users')
 
 async function createCart( user_id ) {
   try {
@@ -51,7 +51,7 @@ async function getCartById(id) {
 }
 async function getActiveCartByUser({username}) {
   try {
-    const user = await getUserByUsername(username)
+    const user = await getWithUsername(username)
     const userId = user.id;
 
     const {

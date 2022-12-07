@@ -4,7 +4,7 @@ const {
   createUser,
   getUser,
   getUserById,
-getUserByUsername,
+getWithUsername,
   getAllUsers,
 } = require("./users");
 const bcrypt = require("bcrypt");
@@ -503,7 +503,7 @@ async function testDB() {
     console.log(userId, "this is user Id");
 
     console.log("getting user by username");
-    const username = await getUserByUsername('dum-dum')
+    const username = await getWithUsername('dum-dum')
     console.log("result:", username);
 
     console.log("item added to cart");

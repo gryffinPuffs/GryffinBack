@@ -35,7 +35,7 @@ async function createUser({
 //for a non empty commit
 async function getUser({ username, password }) {
   try {
-    const user = await getUserByUsername(username);
+    const user = await getWithUsername(username);
     const hashedPassword = user.password;
     const validPassword = await bcrypt.compare(password, hashedPassword);
     if (validPassword) {
@@ -66,7 +66,7 @@ async function getUserById(user_id) {
   }
 }
 
-async function getUserByUsername(username) {
+async function getWithUsername(username) {
   try {
     const {
       rows: [user],
@@ -104,5 +104,5 @@ module.exports = {
   getUser,
   getUserById,
   getAllUsers,
-  getUserByUsername
+  getWithUsername
 };
