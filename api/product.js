@@ -101,52 +101,12 @@ productRouter.delete("/:productId", requireAdmin, async (req, res, next) => {
 
 productRouter.patch("/:productId", requireAdmin, async (req, res, next) => {
   const { productId } = req.params;
-  const { name, price, image_url, image_url2, author, description, audience } =
-    req.body;
-  const updateFields = {};
-  if (name) {
-    const possibleName = await getProductByName(name);
-    if (possibleName === undefined) {
-      updateFields.name = name;
-    } else {
-      next({
-        name: "ProductAlreadyExist",
-        message: `An product with name ${name} already exists`,
-        Error: "product duplicate",
-      });
-    }
-  }
-  if (price) {
-    updateFields.price = price;
-  }
-  if (image_url) {
-    updateFields.image_url = image_url;
-  }
-  if (image_url2) {
-    updateFields.image_url2 = image_url2;
-  }
-  if (author) {
-    updateFields.author = author;
-  }
-  if (description) {
-    updateFields.description = description;
-  }
-  if (audience) {
-    updateFields.audience = audience;
-  }
+  const updateFields = req.body;
   try {
     const originalProduct = await getProductById(productId);
 
     if (originalProduct) {
-      const updatedProduct = await updateProduct(productId, {
-        name,
-        price,
-        image_url,
-        image_url2,
-        author,
-        description,
-        audience,
-      });
+      const updatedProduct = await updateProduct(productId, updateFields);
       console.log("hellooo", updatedProduct);
       res.send(updatedProduct);
     } else {
