@@ -5,9 +5,9 @@ const { getActiveCartByUserId, createCart } = require("../db/cart");
 const {
   createUser,
   getUser,
-  getUserByUsername,
+  getWithUsername,
   getAllUsers,
-} = require("../db/user");
+} = require("../db/users");
 const { requireAdmin } = require("./utils");
 
 userRouter.use((req, res, next) => {

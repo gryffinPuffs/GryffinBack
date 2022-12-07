@@ -2,7 +2,7 @@ const express = require("express");
 const apiRouter = express.Router();
 const jwt = require("jsonwebtoken");
 const { JWT_SECRET } = process.env;
-const { getUserById } = require("../db/user");
+const { getUserById } = require("../db/users");
 
 apiRouter.use("/", async (req, res, next) => {
   console.log("find some books");
@@ -38,7 +38,7 @@ apiRouter.use(async (req, res, next) => {
     });
   }
 });
-const userRouter = ");
+const userRouter = require("./user");
 apiRouter.use("/user", userRouter);
 
 const addressRouter = require("./address");
