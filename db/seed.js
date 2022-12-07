@@ -502,7 +502,9 @@ async function testDB() {
     const userId = await getUserById(1);
     console.log(userId, "this is user Id");
 
-
+    console.log("getting user by username");
+    const username = await getUserByUsername('dum-dum')
+    console.log("result:", username);
 
     console.log("item added to cart");
     const item = await addItemToCart({
