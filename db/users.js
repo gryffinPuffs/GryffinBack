@@ -32,7 +32,7 @@ async function createUser({
     throw error;
   }
 }
-
+//for a non empty commit
 async function getUser({ username, password }) {
   try {
     const user = await getUserByUsername(username);
