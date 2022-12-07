@@ -1,7 +1,7 @@
 const { getCartItemsByCart } = require("./cart_item");
 const { client } = require("./client");
 const { attachProductsToCart  } = require("./product");
-const {getUserByUsername} = require('./user')
+const {getUserByUsername} = require('./User')
 
 async function createCart( user_id ) {
   try {

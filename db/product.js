@@ -1,5 +1,5 @@
 const { client } = require("./client");
-const { getUser } = require("./user");
+const { getUser } = require("./User");
 
 async function createProduct({
   name,
