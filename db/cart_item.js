@@ -22,7 +22,6 @@ async function addItemToCart({ cart_id, product_id, price, quantity }) {
 }
 
 async function getCartItemById(id) {
-  console.log(id, "this is cart item id");
   try {
     const {
       rows: [cart_item],
@@ -52,7 +51,6 @@ async function editCartItem(cartId, product_id, fields = {}) {
             `,
       Object.values(fields)
     );
-    console.log(cart_item, "cart_item after edit");
     return cart_item;
   } catch (error) {
     throw error;

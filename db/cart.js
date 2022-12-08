@@ -81,9 +81,9 @@ async function getActiveCartByUserId({userId}) {
     `,
       [userId]
     );
-    console.log(cart, "The OG CART NO CHANGES ")
+
     const cartsProducts = await attachProductsToCart(cart)
-    console.log(cartsProducts, "potato")
+
     return cartsProducts;
   } catch (error) {
     throw error;

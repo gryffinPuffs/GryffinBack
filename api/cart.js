@@ -67,7 +67,6 @@ cartRouter.post("/", requireUser, async (req, res, next) => {
   userId = req.user.id
   const cart = await createCart(userId);
   if (cart) {
-    console.log('HERE IS YOUR NEW CART!!!!!!!!!!!!!!!!!')
     res.send(cart)
   } else {
 
@@ -129,15 +128,13 @@ cartRouter.patch("/:cartId",  async (req, res, next) => {
 
 cartRouter.post("/:cartId/product", async (req, res, next) => {
   const { cartId } = req.params;
-  console.log("hello", req.params, req.body);
   try {
     const { product_id, price, quantity: inputQuant, addOne } = req.body;
     const cart = await getCartItemsByCart(cartId);
     const bookAlreadyInCart = cart.filter((cartItem) => {
-      console.log(cartItem.product_id == product_id);
       return cartItem.product_id == product_id;
     })[0];
-    console.log(cart, bookAlreadyInCart, "potato");
+
 
     if (cartId && product_id && !bookAlreadyInCart) {
       const cart = {
@@ -149,12 +146,12 @@ cartRouter.post("/:cartId/product", async (req, res, next) => {
       const updatedCartWithProduct = await addItemToCart(cart);
       res.send(updatedCartWithProduct);
     } else if (cartId && product_id && bookAlreadyInCart) {
-      console.log("IN THE ELSE IF ");
+
 
       const quantityUpdated = await editCartItem(cartId, product_id, {
         quantity: addOne ? bookAlreadyInCart.quantity + 1 : inputQuant,
       });
-      console.log(quantityUpdated, "QUANT HERE");
+
       res.send(quantityUpdated);
     } else {
       next({

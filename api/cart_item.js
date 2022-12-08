@@ -13,12 +13,6 @@ cart_itemRouter.patch("/:cart_itemId", requireUser, async (req, res, next) => {
 
   const updateFields = {};
 
-  // if (product_id) {
-  //   updateFields.product_id = product_id;
-  // }
-  // if (price) {
-  //   updateFields.price = price;
-  // }
   if (quantity) {
     updateFields.quantity = quantity;
   }
@@ -48,7 +42,6 @@ cart_itemRouter.delete("/:cart_itemId", requireUser, async (req, res, next) => {
   const { cart_itemId } = req.params;
   try {
     const deleteCartItem = await destroyItemInCart(cart_itemId);
-    console.log("HELLO DELETED", cart_itemId);
     res.send(deleteCartItem);
   } catch ({ name, message }) {
     next({ name, message });

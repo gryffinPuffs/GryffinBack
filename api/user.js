@@ -70,7 +70,7 @@ userRouter.post("/register", async (req, res, next) => {
         email,
         address_id,
       });
-      console.log(newUser, "this is new user");
+
       const newCart = await createCart(newUser.id);
       newUser.cart = newCart;
       const token = jwt.sign(newUser, process.env.JWT_SECRET, {
@@ -112,7 +112,7 @@ userRouter.get("/:username", async (req, res, next) => {
   const username = req.params.username;
   try {
     const user = await getWithUsername(username);
-    console.log(user, "this is our user");
+
     res.send(user);
   } catch (error) {
     next({ message: "no user by this username" });
@@ -123,7 +123,7 @@ userRouter.get("/", requireAdmin, async (req, res, next) => {
   const username = req.params.username;
   try {
     const users = await getAllUsers(username);
-    console.log(users, "this is all of our Users");
+
     res.send(users);
   } catch (error) {
     next();

@@ -44,7 +44,6 @@ async function getAllProducts() {
 //get products by audience
 
 async function getProductByAudience(audience) {
-  console.log("hello");
   try {
     const { rows: products } = await client.query(
       `
@@ -54,8 +53,7 @@ async function getProductByAudience(audience) {
     `,
       [audience]
     );
-    console.log("this is getProductByAudience", audience);
-    console.log("banana", products);
+
     return products;
   } catch (error) {
     throw error;
@@ -107,7 +105,7 @@ async function updateProduct(id, fields = {}) {
     `,
       Object.values(fields)
     );
-    console.log(product, "this is product");
+
     return product;
   } catch (error) {
     throw error;

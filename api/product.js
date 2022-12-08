@@ -39,7 +39,6 @@ productRouter.get("/:id", async (req, res, next) => {
 
 // GET /api/products/audience
 productRouter.get("/audience/:type", async (req, res, next) => {
-  console.log("hello");
   const { type: audience } = req.params;
   try {
     const audienceType = await getProductByAudience(audience);
@@ -107,7 +106,6 @@ productRouter.patch("/:productId", requireAdmin, async (req, res, next) => {
 
     if (originalProduct) {
       const updatedProduct = await updateProduct(productId, updateFields);
-      console.log("hellooo", updatedProduct);
       res.send(updatedProduct);
     } else {
       next({
