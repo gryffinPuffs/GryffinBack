@@ -91,16 +91,14 @@ async function getActiveCartByUserId({userId}) {
 }
 async function getInactiveCartsByUser({ username }) {
   try {
-    const user = await getWithUsername(username);
-    const userId = user.id;
     const { rows: carts } = await client.query(
       `
     SELECT carts.*, users.username AS user_username
     FROM carts
     JOIN users on users.id=carts.user_id
-    WHERE user_id = $1 AND carts.active = false
+    WHERE username = $1 AND carts.active = false
     `,
-      [userId]
+      [username]
     );
     const cartsProducts=Promise.all(carts.map((cart)=>{return attachProductsToCart(cart)}))
 
