@@ -44,7 +44,7 @@ GryffinBack/
 ├── db/
 │   ├── client.js
 │   ├── users.js
-│   ├── products.js
+│   ├── product.js
 │   ├── cart.js
 │   ├── cart_item.js
 │   ├── address.js
