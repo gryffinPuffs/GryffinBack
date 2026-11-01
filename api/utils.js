@@ -1,22 +1,31 @@
+
 function requireUser(req, res, next) {
   if (!req.user) {
-    next({
-      error: "401",
+    return next({
       name: "MissingUserError",
-      message: "You must be logged in to perform this action",
+      message: "You must be logged in to perform this action.",
     });
   }
-  next();
+
+  return next();
 }
 
 function requireAdmin(req, res, next) {
-  if (!req.user.admin) {
-    next({
-      name: "Permissions Invalid ",
-      message: "You must have administrator access",
+  if (!req.user) {
+    return next({
+      name: "MissingUserError",
+      message: "You must be logged in to perform this action.",
     });
   }
-  next();
+
+  if (!req.user.admin) {
+    return next({
+      name: "PermissionsError",
+      message: "You must have administrator access.",
+    });
+  }
+
+  return next();
 }
 
 module.exports = {

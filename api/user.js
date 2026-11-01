@@ -1,135 +1,198 @@
 const express = require("express");
 const userRouter = express.Router();
 const jwt = require("jsonwebtoken");
-const { getActiveCartByUserId, createCart } = require("../db/cart");
+
+const {
+  getActiveCartByUserId,
+} = require("../db/cart");
+
 const {
   createUser,
   getUser,
   getWithUsername,
   getAllUsers,
 } = require("../db/users");
+
 const { requireAdmin } = require("./utils");
 
+// Check JWT configuration
+function createToken(userId) {
+  if (!process.env.JWT_SECRET) {
+    throw new Error("JWT_SECRET is not configured.");
+  }
+
+  return jwt.sign(
+    { id: userId },
+    process.env.JWT_SECRET,
+    {
+      expiresIn: "1w",
+      algorithm: "HS256",
+    }
+  );
+}
+
+// Request logging
 userRouter.use((req, res, next) => {
   console.log("A request is being made to /user");
   next();
 });
 
+// User login
 userRouter.post("/login", async (req, res, next) => {
   const { username, password } = req.body;
-  try {
-    const user = await getUser({ username, password });
 
-    if (user) {
-      const cart= await getActiveCartByUserId({userId:user.id})
-      user.cart=cart
-      const token = jwt.sign(user, process.env.JWT_SECRET, {
-        expiresIn: "1w",
-      });
-      res.send({
-        token,
-        user,
-        message: "you're logged in!",
-      });
-    } else {
-      next({
-        name: "IncorrectCredentialsError",
-        message: "Username or Password is Incorrect",
+  try {
+    if (!username || !password) {
+      return res.status(400).send({
+        error: "ValidationError",
+        message: "Username and password are required.",
       });
     }
+
+    const user = await getUser({ username, password });
+
+    if (!user) {
+      return next({
+        name: "IncorrectCredentialsError",
+        message: "Username or password is incorrect.",
+      });
+    }
+
+    const cart = await getActiveCartByUserId({
+      userId: user.id,
+    });
+
+    user.cart = cart;
+
+    const token = createToken(user.id);
+
+    res.send({
+      token,
+      user,
+      message: "You're logged in!",
+    });
   } catch (error) {
-    console.log(error);
     next(error);
   }
 });
 
+// User registration
 userRouter.post("/register", async (req, res, next) => {
-  const { username, password, name, admin, email, address_id } = req.body;
-  try {
-    const user = await getWithUsername(username);
+  const {
+    username,
+    password,
+    name,
+    email,
+    address_id,
+  } = req.body;
 
-    if (password.length < 8) {
-      next({
-        error: "Password too short",
-        message: "Password Too Short!",
-        name: "password too short",
+  try {
+    if (!username || !password || !name || !email) {
+      return res.status(400).send({
+        error: "ValidationError",
+        message: "Username, password, name, and email are required.",
       });
     }
 
-    if (user) {
-      next({
+    if (typeof password !== "string" || password.length < 8) {
+      return next({
+        name: "PasswordValidationError",
+        message: "Password must be at least 8 characters long.",
+      });
+    }
+
+    const existingUser = await getWithUsername(username);
+
+    if (existingUser) {
+      return next({
         name: "User exists",
         message: `User ${username} already exists.`,
       });
-    } else {
-      const newUser = await createUser({
-        username,
-        password,
-        name,
-        admin,
-        email,
-        address_id,
-      });
+    }
 
-      const newCart = await createCart(newUser.id);
-      newUser.cart = newCart;
-      const token = jwt.sign(newUser, process.env.JWT_SECRET, {
-        expiresIn: "1w",
-      });
+    const newUser = await createUser({
+      username,
+      password,
+      name,
+      email,
+      address_id,
+    });
 
-      res.send({
-        message: "Thank you for registering!",
-        token,
-        user: newUser,
+    if (!newUser) {
+      return next({
+        name: "RegistrationError",
+        message: "Unable to create user.",
       });
     }
-  } catch ({ name, message }) {
-    next({ name, message });
+
+    // createUser already creates the user's cart.
+    // Retrieve that cart instead of creating a duplicate.
+    newUser.cart = await getActiveCartByUserId({
+      userId: newUser.id,
+    });
+
+    const token = createToken(newUser.id);
+
+    res.status(201).send({
+      message: "Thank you for registering!",
+      token,
+      user: newUser,
+    });
+  } catch (error) {
+    next(error);
   }
 });
 
+// Get current logged-in user
 userRouter.get("/me", async (req, res, next) => {
   try {
-    if (req.user) {
-      const userId = req.user.id;
-      const cart = await getActiveCartByUserId({ userId });
-      req.user.cart = cart;
-      res.send(req.user);
-    } else {
-      next({
+    if (!req.user) {
+      return res.status(401).send({
         error: "Unauthorized",
-        name: "Invalid credentials",
-        message: "You must be logged in",
+        message: "You must be logged in.",
       });
     }
-  } catch (err) {
-    console.log(err.message);
-    next();
+
+    const userId = req.user.id;
+
+    const cart = await getActiveCartByUserId({
+      userId,
+    });
+
+    req.user.cart = cart;
+
+    res.send(req.user);
+  } catch (error) {
+    next(error);
   }
 });
 
+// Get user by username
 userRouter.get("/:username", async (req, res, next) => {
-  const username = req.params.username;
   try {
-    const user = await getWithUsername(username);
+    const user = await getWithUsername(req.params.username);
+
+    if (!user) {
+      return res.status(404).send({
+        error: "NotFound",
+        message: "No user found with that username.",
+      });
+    }
 
     res.send(user);
   } catch (error) {
-    next({ message: "no user by this username" });
+    next(error);
   }
 });
-// *currently working here*
-userRouter.get("/", requireAdmin, async (req, res, next) => {
-  const username = req.params.username;
-  try {
-    const users = await getAllUsers(username);
 
+// Get all users (admin only)
+userRouter.get("/", requireAdmin, async (req, res, next) => {
+  try {
+    const users = await getAllUsers();
     res.send(users);
   } catch (error) {
-    next();
+    next(error);
   }
 });
-
-//make get/users route make sure person is logged in and has admin access
 
 module.exports = userRouter;

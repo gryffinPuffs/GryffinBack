@@ -5,7 +5,6 @@ async function createUser({
   username,
   password,
   name,
-  admin,
   email,
   address_id,
 }) {
@@ -13,24 +12,27 @@ async function createUser({
   const salt = await bcrypt.genSalt(saltRound);
   const bcryptPassword = await bcrypt.hash(password, salt);
 
-  try {
-    const {
-      rows: [user],
-    } = await client.query(
-      `
-          INSERT INTO users(username, password, name, admin, email, address_id)
-          VALUES ($1, $2, $3, $4, $5, $6)
-          ON CONFLICT (username) DO NOTHING
-          RETURNING *;
-        `,
-      [username, bcryptPassword, name, admin, email, address_id]
-    );
-    delete user.password;
-    await createCart(user.id, true);
-    return user;
-  } catch (error) {
-    throw error;
+  const {
+    rows: [user],
+  } = await client.query(
+    `
+      INSERT INTO users(username, password, name, admin, email, address_id)
+      VALUES ($1, $2, $3, $4, $5, $6)
+      ON CONFLICT (username) DO NOTHING
+      RETURNING *;
+    `,
+    [username, bcryptPassword, name, false, email, address_id]
+  );
+
+  if (!user) {
+    return null;
   }
+
+  delete user.password;
+
+  await createCart(user.id, true);
+
+  return user;
 }
 //for a non empty commit
 async function getUser({ username, password }) {
